@@ -1,0 +1,172 @@
+% Long version of Appendix A (Lyapunov analysis) of the paper
+% "Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model".
+% The paper gives a one-page outline; this file writes out every step. Cross-references
+% (equations, tables, sections) refer to the paper. Requires amsthm (lemma, theorem, assumption, remark).
+
+\section{Lyapunov analysis of the nominal model}
+\label{app:lyapunov}
+
+This appendix proves the result stated in Section~\ref{sec:stability}: on the nominal model, every dose signal between the two dose levels drives the tumor to zero from the state at the start of treatment. Only the glial, glioma and drug equations of Eq.~\eqref{eq:model_norm} are involved, because the neurons $x_3$ do not act on the other three states.
+
+\subsection{Notation, assumptions and constants}
+
+Let $w=1-x_1$ be the glial deficit, $\bar x_4=u_{\min}/\zeta$ the drug level sustained by the maintenance dose, and $\xi=\max(0,\bar x_4-x_4)$ the drug deficit. Define
+\begin{equation}
+\chi(x_2)=\Omega_2(1-x_2)-\frac{p_2\,\bar x_4}{a_2+x_2},\qquad
+m=\chi(0)=\Omega_2-\frac{p_2\,\bar x_4}{a_2},\qquad
+\varepsilon=\frac{p_1\,u_{\max}}{\zeta\,a_1},
+\label{eq:lyap_defs}
+\end{equation}
+where $\chi(x_2)$ is the growth rate per glioma cell when the drug is at $\bar x_4$ and no glial cells are present. With $V(x_1,x_2)=x_1-1-\ln x_1+c\,x_2$, the function of Eq.~\eqref{eq:lyapW} is $W=V+\eta\,\xi$.
+
+\begin{assumption}[Parameters]
+\label{as:param}
+All parameters of Eq.~\eqref{eq:model_norm} are positive, and (i) $p_2\bar x_4\le\Omega_2a_2^2$ and (ii) $m<\beta_2$.
+\end{assumption}
+
+\begin{assumption}[Dose]
+\label{as:dose}
+The dose $u(t)$ is piecewise continuous and $u_{\min}\le u(t)\le u_{\max}$ for all $t\ge0$.
+\end{assumption}
+
+\begin{assumption}[Initial state]
+\label{as:init}
+$0<x_1(0)\le1$, $x_2(0)\ge0$, $0\le x_4(0)\le u_{\max}/\zeta$ and $W(x(0))\le W_0$.
+\end{assumption}
+
+The right-hand side of Eq.~\eqref{eq:model_norm} is locally Lipschitz in $(x_1,x_2,x_4)$ for $x_1,x_2\ge0$ and piecewise continuous in $t$. Each initial state therefore has a unique solution, which is continuous, is differentiable except at the discontinuities of $u$, and exists for all $t\ge0$ by the bounds of Lemma~\ref{lem:bounds} below and $\dot x_2\le\Omega_2x_2$. Along a solution, $W$ is locally absolutely continuous, so a bound on $\dot W$ that holds for almost every $t$ can be integrated.
+
+The weight $c>0$ is a free design constant. The weight $\eta$ and the level $W_0$ are defined together by
+\begin{equation}
+\eta=\frac{c\,p_2\,\bar x_2}{\zeta\,(a_2+\bar x_2)},\qquad \bar x_2=\frac{W_0}{c},\qquad
+W_0=V\bigl(x_{\mathrm{pre},1},x_{\mathrm{pre},2}\bigr)+\eta\,\bar x_4 ,
+\label{eq:lyap_eta}
+\end{equation}
+so that $W_0$ is the value of $W$ at the state $x_{\mathrm{pre}}$ at the start of treatment, where $x_4=0$ (Section~\ref{sec:init}). The three relations have a unique solution, which was computed by fixed-point iteration: as a function of $W_0$, the right-hand side of the third relation has a slope of at most $p_2\bar x_4/(\zeta a_2)$, which is below 1 for the nominal parameters, so the iteration is a contraction. Let
+\begin{equation}
+\mathcal D=\Bigl\{x:\ 0<x_1\le1,\ x_2\ge0,\ 0\le x_4\le u_{\max}/\zeta,\ W(x)\le W_0\Bigr\}.
+\end{equation}
+Since the three terms of $W$ are non-negative, every $x\in\mathcal D$ satisfies $x_2\le\bar x_2$ and $x_1\ge x_{1,\min}$, where $x_{1,\min}\in(0,1)$ solves $x_1-1-\ln x_1=W_0$. The pair $(x_1,x_2)$ therefore lies in the rectangle $\Pi=[x_{1,\min},1]\times[0,\bar x_2]$.
+
+\subsection{Lemmas}
+
+\begin{lemma}[Bounds on the states]
+\label{lem:bounds}
+Let Assumption~\ref{as:dose} hold, and let $0<x_1(0)\le1$, $x_2(0)\ge0$ and $0\le x_4(0)\le u_{\max}/\zeta$. Then (a) these three bounds hold for all $t\ge0$, and (b) $\dot\xi\le-\zeta\,\xi$ for almost every $t$, so that $\xi(t)\le\xi(0)\,e^{-\zeta t}$.
+\end{lemma}
+
+\begin{proof}
+(a) The first two equations of Eq.~\eqref{eq:model_norm} have the form $\dot x_i=x_i\,h_i(x)$, so $x_i(t)=x_i(0)\exp\int_0^th_i\,d\tau$, which gives $x_1>0$ and $x_2\ge0$. The drug equation gives $x_4(t)=e^{-\zeta t}x_4(0)+\int_0^te^{-\zeta(t-\tau)}u(\tau)\,d\tau$, which lies in $[0,u_{\max}/\zeta]$ for $0\le u\le u_{\max}$. Since $x_2,x_4\ge0$, $\dot x_1\le\Omega_1x_1(1-x_1)$, so $x_1\le1$ by comparison with the logistic equation. (b) Let $z=x_4-\bar x_4$. Since $\zeta\bar x_4=u_{\min}$, $\dot z=(u-u_{\min})-\zeta z\ge-\zeta z$, so $z(t)\ge z(\tau)\,e^{-\zeta(t-\tau)}$ for $t\ge\tau$: once $z$ is non-negative it stays non-negative, and $\xi$ remains zero. Where $z<0$, $\xi=-z$ and $\dot\xi=-(u-u_{\min})-\zeta\,\xi\le-\zeta\,\xi$.
+\end{proof}
+
+\begin{lemma}[Bound on the derivative of $W$]
+\label{lem:wdot}
+Let Assumption~\ref{as:dose} and the bounds of Lemma~\ref{lem:bounds} hold. Along every solution, for almost every $t$,
+\begin{equation}
+\dot W\le\Theta(x_1,x_2)+\xi\Bigl[\frac{c\,p_2\,x_2}{a_2+x_2}-\eta\,\zeta\Bigr],\qquad
+\Theta(x_1,x_2)=-\Omega_1w^2+\varepsilon\,w+x_2\Bigl[\beta_1w+c\bigl(\chi(x_2)-\beta_2x_1\bigr)\Bigr],
+\label{eq:lyap_theta}
+\end{equation}
+and the bracket that multiplies $\xi$ is not positive when $x_2\le\bar x_2$. In particular, $\dot W\le\Theta(x_1,x_2)$ at almost every time at which $x(t)\in\mathcal D$.
+\end{lemma}
+
+\begin{proof}
+The three terms of $W$ are differentiated in turn. For the glial term,
+\begin{equation}
+\frac{d}{dt}\bigl(x_1-1-\ln x_1\bigr)=-\frac{w}{x_1}\,\dot x_1
+=-\Omega_1w^2+\beta_1w\,x_2+\frac{p_1w\,x_4}{a_1+x_1}
+\le-\Omega_1w^2+\beta_1w\,x_2+\varepsilon\,w ,
+\label{eq:lyap_t1}
+\end{equation}
+where the inequality uses $w\ge0$, $a_1+x_1\ge a_1$ and $x_4\le u_{\max}/\zeta$. For the tumor term, $x_4\ge\bar x_4-\xi$ and $x_2\ge0$ give
+\begin{equation}
+\frac{d}{dt}(c\,x_2)=c\,x_2\Bigl[\Omega_2(1-x_2)-\beta_2x_1-\frac{p_2x_4}{a_2+x_2}\Bigr]
+\le c\,x_2\bigl[\chi(x_2)-\beta_2x_1\bigr]+\frac{c\,p_2\,x_2}{a_2+x_2}\,\xi .
+\label{eq:lyap_t2}
+\end{equation}
+For the drug-deficit term, Lemma~\ref{lem:bounds} gives $\tfrac{d}{dt}(\eta\,\xi)\le-\eta\,\zeta\,\xi$. Adding the three bounds gives Eq.~\eqref{eq:lyap_theta}. Since $x_2/(a_2+x_2)$ increases with $x_2$, the bracket is at most $c\,p_2\bar x_2/(a_2+\bar x_2)-\eta\,\zeta$ for $x_2\le\bar x_2$, which is zero by Eq.~\eqref{eq:lyap_eta}; and $x_2\le\bar x_2$ on $\mathcal D$.
+\end{proof}
+
+\begin{lemma}[Sign of $\Theta$]
+\label{lem:theta}
+Consider the nominal parameters of Table~\ref{tab:normalized-parameters}, $u_{\min}=50$, $u_{\max}=200$~mg\,m$^{-2}$\,day$^{-1}$, $c=3$, and the rectangle $\Pi$ that belongs to the state $x_{\mathrm{pre}}$ of Section~\ref{sec:init}. Then Assumption~\ref{as:param} holds, and $\Theta(x_1,x_2)<0$ at every point of $\Pi$ outside the box
+\begin{equation}
+\mathcal R=\bigl\{(x_1,x_2):\ 0\le1-x_1\le w_{\mathcal R},\ 0\le x_2\le x_{2,\mathcal R}\bigr\},\qquad
+w_{\mathcal R}=6.92\times10^{-3},\quad x_{2,\mathcal R}=1.78\times10^{-5}.
+\label{eq:lyap_box}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The proof is computer-assisted. On a cell $[x_1^a,x_1^b]\times[x_2^a,x_2^b]$ of $\Pi$, $\Theta$ is bounded from above by
+\[
+\max_{w\in[1-x_1^b,\,1-x_1^a]}\bigl(-\Omega_1w^2+\varepsilon\,w\bigr)+\max\bigl(x_2^a\,\bar B,\;x_2^b\,\bar B\bigr),\qquad
+\bar B=\beta_1(1-x_1^a)+c\bigl(\chi(x_2^a)-\beta_2x_1^a\bigr).
+\]
+Here $\bar B$ bounds the bracket of $\Theta$ on the cell, because the bracket increases with $w$ and, by Assumption~\ref{as:param}(i), $\chi$ decreases with $x_2$. The bound holds at every point of the cell, so it does not rely on sample points. It was first evaluated in double-precision arithmetic on a partition of $\Pi$ into $4000\times4000$ cells. The cells on which it was not negative lie next to the tumor-free corner $(x_1,x_2)=(1,0)$, where $\Theta=0$; the smallest rectangle containing them was partitioned again into $3000\times3000$ cells, twice. This located the region in which the bound is not negative within $1-x_1\le6.9122\times10^{-3}$ and $x_2\le1.7777\times10^{-5}$; both numbers are rounded up in Eq.~\eqref{eq:lyap_box}. Because double-precision arithmetic does not control rounding errors, the statement of the lemma, with the box of Eq.~\eqref{eq:lyap_box}, was then verified with the same bound in exact rational arithmetic on an adaptive partition of a rectangle that contains $\Pi$. The glial bound $w_{\mathcal R}$ is close to $\varepsilon/\Omega_1$, the value below which $-\Omega_1w^2+\varepsilon\,w$ is positive.
+\end{proof}
+
+\subsection{Main result}
+
+Let $l^\ast$ be the largest value of $V$ on $\mathcal R$. Since $V$ decreases with $x_1$ on $(0,1]$ and increases with $x_2$, this value is attained at the corner $(1-w_{\mathcal R},\,x_{2,\mathcal R})$, and $V>l^\ast$ implies $(x_1,x_2)\notin\mathcal R$. Let $x_{1,\mathrm{floor}}\in(0,1)$ solve $x_1-1-\ln x_1=l^\ast$, and let $\rho^\ast=\beta_2\,x_{1,\mathrm{floor}}-m$.
+
+\begin{theorem}
+\label{thm:lyap}
+Consider the nominal model, Eq.~\eqref{eq:model_norm}, with the constants of Lemma~\ref{lem:theta}, and let Assumptions~\ref{as:dose} and~\ref{as:init} hold. Then, for every admissible dose signal:
+\begin{enumerate}
+\item[(i)] the set $\mathcal D$ is forward invariant, and $W$ is strictly decreasing on every time interval during which $(x_1,x_2)\notin\mathcal R$;
+\item[(ii)] $\limsup_{t\to\infty}V\bigl(x_1(t),x_2(t)\bigr)\le l^\ast$, so that $\liminf_{t\to\infty}x_1(t)\ge x_{1,\mathrm{floor}}$;
+\item[(iii)] the tumor decays exponentially: for every $\rho<\rho^\ast$ there is a constant $K>0$ such that $x_2(t)\le K\,e^{-\rho t}$ for all $t\ge0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) By Lemma~\ref{lem:bounds}, the first three conditions that define $\mathcal D$ are preserved. Let $F(x)$ denote the right-hand side of the first inequality of Eq.~\eqref{eq:lyap_theta}; it is continuous, and $\dot W\le F$ for almost every $t$. Suppose that $W$ exceeds $W_0$ at some time, and let $t_1$ be the infimum of such times, so that $W(t_1)=W_0$ and $x(t_1)\in\mathcal D$. At $t_1$, the bound $\eta\,\xi\le\eta\,\bar x_4$ and Eq.~\eqref{eq:lyap_eta} give $V=W_0-\eta\,\xi\ge V(x_{\mathrm{pre},1},x_{\mathrm{pre},2})>l^\ast$, so $(x_1,x_2)\notin\mathcal R$ and, by Lemmas~\ref{lem:wdot} and~\ref{lem:theta}, $F(x(t_1))\le\Theta<0$. By continuity, $F<0$ on some interval $[t_1,t_1+\tau]$, so $W\le W_0$ there, a contradiction. Hence the solution stays in $\mathcal D$ and $\dot W\le\Theta$ for almost every $t\ge0$. The second statement follows from Lemma~\ref{lem:theta}.
+
+(ii) Fix $\gamma>0$. The function $\Theta$ is continuous and negative on the compact set $\{(x_1,x_2)\in\Pi:\ V\ge l^\ast+\gamma\}$, so it is at most some $-\theta_\gamma<0$ there. As $W\ge0$, $V$ cannot stay above $l^\ast+\gamma$ forever. By Lemma~\ref{lem:bounds}, there is a time after which $\eta\,\xi\le\gamma$. Take a later time $t_a$ with $V(t_a)<l^\ast+\gamma$, and suppose that $V(t_b)>l^\ast+2\gamma$ for some $t_b>t_a$. Let $t_c\in(t_a,t_b)$ be the last time before $t_b$ at which $V=l^\ast+\gamma$. On $(t_c,t_b]$, $V>l^\ast$, so $W$ decreases and
+\[
+V(t_b)\le W(t_b)\le W(t_c)=l^\ast+\gamma+\eta\,\xi(t_c)\le l^\ast+2\gamma ,
+\]
+a contradiction. Hence $V\le l^\ast+2\gamma$ for all $t\ge t_a$. Since $\gamma$ is arbitrary, the first claim follows, and the second follows from $x_1-1-\ln x_1\le V$.
+
+(iii) Since $\chi$ decreases with $x_2$, $\chi(x_2)\le m$, and with $x_4\ge\bar x_4-\xi$,
+\[
+\frac{\dot x_2}{x_2}=\Omega_2(1-x_2)-\beta_2x_1-\frac{p_2x_4}{a_2+x_2}\le m-\beta_2x_1+\frac{p_2}{a_2}\,\xi .
+\]
+By (ii) and Lemma~\ref{lem:bounds}, for every $\rho<\rho^\ast$ there is a time $T$ after which the right-hand side is below $-\rho$; $\rho^\ast>0$ for the constants of Table~\ref{tab:lyapunov}. Since $x_2\le\bar x_2$ before that time, the bound holds for all $t\ge0$ with $K=\bar x_2\,e^{\rho T}$.
+\end{proof}
+
+\begin{remark}[Scope]
+\label{rem:scope}
+Theorem~\ref{thm:lyap} does not depend on a controller: it holds for every dose signal between $u_{\min}$ and $u_{\max}$, and therefore for the daily schedules of the PID, SMC and $\mu$-synthesis controllers. It does not cover the two reference scenarios of Section~\ref{sec:tmz}, in which $u=0$ on some days. It gives no bound on the tracking error, and it is a statement about the nominal parameters only. For other parameter values, Lemma~\ref{lem:theta} has to be established again. Assumption~\ref{as:param}(i) is used in Lemma~\ref{lem:theta} and in part (iii). Assumption~\ref{as:param}(ii) is needed for the conclusion, because $m-\beta_2$ is the growth rate per glioma cell at the tumor-free state when the drug is at $\bar x_4$; what the proof uses is $\rho^\ast>0$ and Lemma~\ref{lem:theta}, so this assumption alone does not ensure that $W$ decreases.
+\end{remark}
+
+Table~\ref{tab:lyapunov} lists the constants. The state $x_{\mathrm{pre}}$ satisfies Assumption~\ref{as:init} by construction, with $W(x_{\mathrm{pre}})=W_0$, so the theorem applies to the solution of the nominal model under the schedule of each of the three controllers.
+
+\begin{table}[htbp]
+\centering
+\caption{Constants of the Lyapunov analysis of the nominal model. Upper bounds are rounded up and lower bounds down; the analysis uses the full values stored with the code.}
+\label{tab:lyapunov}
+\small
+\begin{tabular}{lc}
+\toprule
+Quantity & Value \\
+\midrule
+Design constant $c$ & $3$ \\
+$\bar{x}_4=u_{\min}/\zeta$ (mg\,m$^{-2}$) & $250$ \\
+$\varepsilon=p_1u_{\max}/(\zeta a_1)$ (day$^{-1}$) & $4.70{\times}10^{-5}$ \\
+$m=\Omega_2-p_2\bar{x}_4/a_2$ (day$^{-1}$) & $2.50{\times}10^{-4}$ \\
+$\beta_2$ (day$^{-1}$) & $1.80{\times}10^{-3}$ \\
+$\eta$ (m$^{2}$\,mg$^{-1}$) & $1.84{\times}10^{-4}$ \\
+$W_0$ & $1.06$ \\
+$\bar{x}_2=W_0/c$, upper bound of $x_2$ on $\mathcal D$ & $0.36$ \\
+$x_{1,\min}$, lower bound of $x_1$ on $\mathcal D$ & $0.14$ \\
+$w_{\mathcal R}$, bound of $1-x_1$ on $\mathcal R$ & $6.92{\times}10^{-3}$ \\
+$x_{2,\mathcal R}$, bound of $x_2$ on $\mathcal R$ & $1.78{\times}10^{-5}$ \\
+$l^\ast$, largest $V$ on $\mathcal R$ & $7.75{\times}10^{-5}$ \\
+$x_{1,\mathrm{floor}}$ & $0.98$ \\
+$\rho^\ast=\beta_2x_{1,\mathrm{floor}}-m$ (day$^{-1}$) & $1.52{\times}10^{-3}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+

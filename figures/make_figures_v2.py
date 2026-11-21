@@ -190,11 +190,11 @@ def save(fig, name):
 # panel (d); each group also has its own line style and marker, and neighbouring curves (G5, G4, G3, G1 from top
 # to bottom in the figure) alternate between dark and light so that they also differ in grayscale print.
 GRP2 = {"nominal": dict(color="black", ls="-", lw=0.9, label="Nominal plant"),
-        "G1": dict(color="#E69F00", ls="-", lw=0.8, marker="o", label="G1"),
-        "G2": dict(color="#56B4E9", ls=(0, (4, 1.6)), lw=0.8, marker="s", label="G2"),
-        "G3": dict(color="#332288", ls=(0, (1, 1.2)), lw=0.9, marker="^", label="G3"),
-        "G4": dict(color="#CC79A7", ls=(0, (5, 1.2, 1, 1.2)), lw=0.8, marker="D", label="G4"),
-        "G5": dict(color="#882255", ls=(0, (6, 1.2, 1, 1.2, 1, 1.2)), lw=0.8, marker="v", label="G5")}
+        "G1": dict(color="#E69F00", ls="-", lw=0.8, label="G1"),
+        "G2": dict(color="#56B4E9", ls="-", lw=0.8, label="G2"),
+        "G3": dict(color="#332288", ls="-", lw=0.8, label="G3"),
+        "G4": dict(color="#CC79A7", ls="-", lw=0.8, label="G4"),
+        "G5": dict(color="#999933", ls="-", lw=0.8, label="G5")}
 MK = dict(ms=2.6, markevery=(0, 1), mew=0.0)
 # Observers: blue and red (EKF blue, Luenberger red); luminance differs so that they also separate in grayscale.
 BLUE, RED = "#3C7DD9", "#B71C1C"
@@ -237,9 +237,9 @@ def f_protocol_4panel():
     ND = rd("nominal_discrete")
     REFS = rd("reference")
     smc = run(ND, "controller", "SMC")
-    s2 = dict(color="#CC79A7", ls=(0, (4, 1.6)), lw=1.0, label=r"5/28 protocol, 200 mg m$^{-2}$ day$^{-1}$")
-    s4 = dict(color="#56B4E9", ls=(0, (1, 1.2)), lw=1.4, label=r"5/28 protocol, 400 mg m$^{-2}$ day$^{-1}$")
-    sm = kw(CTRL["SMC"], label="SMC (discrete)")
+    s2 = dict(color="#CC79A7", ls="-", lw=0.8, label=r"5/28 schedule, 200 mg m$^{-2}$ day$^{-1}$")
+    s4 = dict(color="#56B4E9", ls="-", lw=0.8, label=r"5/28 schedule, 400 mg m$^{-2}$ day$^{-1}$")
+    sm = kw(CTRL["SMC"], ls="-", lw=0.9, label="SMC")
     fig, ax = grid(190, 112, 2, 2, top=11, hgap=12, wgap=17, left=14)
     # draw the SMC last so that it stays visible on top of the reference and of the 400 protocol
     for r, st in ((run(SP, "run", "standard_5_28_dose200"), s2), (run(SP, "run", "standard_5_28_dose400"), s4), (smc, sm)):
@@ -267,9 +267,9 @@ def f_protocol():
     ND = rd("nominal_discrete")
     REFS = rd("reference")
     smc = run(ND, "controller", "SMC")
-    s2 = dict(color="#CC79A7", ls=(0, (4, 1.6)), lw=1.0, label=r"5/28 protocol, 200 mg m$^{-2}$ day$^{-1}$")
-    s4 = dict(color="#56B4E9", ls=(0, (1, 1.2)), lw=1.4, label=r"5/28 protocol, 400 mg m$^{-2}$ day$^{-1}$")
-    sm = kw(CTRL["SMC"], label="SMC (discrete)")
+    s2 = dict(color="#CC79A7", ls="-", lw=0.8, label=r"5/28 schedule, 200 mg m$^{-2}$ day$^{-1}$")
+    s4 = dict(color="#56B4E9", ls="-", lw=0.8, label=r"5/28 schedule, 400 mg m$^{-2}$ day$^{-1}$")
+    sm = kw(CTRL["SMC"], ls="-", lw=0.9, label="SMC")
     fig, (ax,) = grid(140, 72, 1, 1, top=10, left=15)
     ax.plot(REFS.time_day, REFS.x2_reference, **REF)
     for r, st in ((run(SP, "run", "standard_5_28_dose200"), s2), (run(SP, "run", "standard_5_28_dose400"), s4), (smc, sm)):
@@ -284,7 +284,7 @@ def f_protocol():
 def f_uncertainty():
     E = rd("e1_uncertainty")
     REFS = rd("reference")
-    fig, ax = grid(190, 112, 2, 2, top=15, hgap=12, wgap=17, left=14)
+    fig, ax = grid(190, 140, 2, 2, top=15, hgap=12, wgap=17, left=14)
     groups = ["nominal", "G1", "G2", "G3", "G4", "G5"]
     for i, c in enumerate(("PID", "SMC", "mu")):
         for g in groups[::-1]:           # nominal drawn last (on top)
@@ -293,7 +293,7 @@ def f_uncertainty():
         ax[i].plot(REFS.time_day, REFS.x2_reference, **kw(REF, lw=0.8))
         ax[i].axhline(1e-4, **kw(THR, lw=0.8))
         logy(ax[i], 1e-7, 1)
-        ax[i].set_ylabel(r"$x_2$ (normalized)")
+        ax[i].set_ylabel(("PID", "SMC", r"$\mu$-synthesis")[i] + r" schedule: $x_2$")
         time_axis(ax[i])
     xT = E[E.time_day == 2000]
     wbar = 0.26
@@ -316,7 +316,6 @@ def f_uncertainty():
     gh = []
     for g in groups:
         st = {k: v for k, v in GRP2[g].items()}
-        st.update(ms=2.6, mew=0.0)
         gh.append(Line2D([], [], **st))
     hs = gh + [h_line(kw(REF, lw=0.8)), h_line(kw(THR, lw=0.8))] + \
          [Patch(facecolor=CTRL[c]["color"], edgecolor="black", linewidth=0.4, hatch=hatch[c], label=CTRL[c]["label"]) for c in CTRL]
@@ -480,8 +479,8 @@ def f_lyap_G5():
     E = L[(L.protocol == "E1_replay") & (L.controller == "SMC")]
     nom = E[E.group == "nominal"].sort_values("time_day")
     g5 = E[E.group == "G5"].sort_values("time_day")
-    sn = dict(color="black", ls="-", lw=0.9, label="Nominal plant")
-    s5 = dict(color=GRP2["G5"]["color"], ls="-", lw=0.9, label="Plant G5")
+    sn = dict(color="#3C7DD9", ls="-", lw=0.9, label="Nominal plant")
+    s5 = dict(color="#E69F00", ls="-", lw=0.9, label="Plant G5")
     fig, ax = grid(140, 108, 2, 1, top=10, hgap=4.5, left=15)
     for r, st in ((g5, s5), (nom, sn)):
         ax[0].plot(r.time_day, r.W, **st)

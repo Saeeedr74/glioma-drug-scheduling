@@ -48,6 +48,7 @@ Measured on a Windows 11 laptop (Python 3.13.0) in one verification run; times a
 | observer summary | `python observer/make_facts_block.py` | 3 s |
 | Lyapunov certificate | `python lyapunov/verify_proof_symbolic_and_grid.py` | 4 s |
 | sign condition of the certificate in exact arithmetic | `python lyapunov/verify_lemma_exact.py` | 1 s |
+| full proof of the Lyapunov result (long version of Appendix A) | `lyapunov/full_proof.tex` | - |
 | dW/dt along the runs | `python lyapunov/verify_proof_plots.py` | 7 s |
 | tracking-error bounds | `python lyapunov/error_dynamics.py` | 2 s |
 | all figures | `python figures/make_figures.py` | 17 s |
@@ -85,7 +86,7 @@ stops at x2 <= 1e-5 (a stopping criterion of the code, then x2 := 0 and u = 0).
 | `fig_app_tuning` | figures/make_figures.py | tuning_convergence.csv (tuning/) |
 | `fig_app_mu_search`, `fig_app_mu_E2_mc`, `fig_app_mu_rules` | figures/make_figures.py | mu_*.csv (controllers/mu_synthesis) |
 | `fig_app_lyapunov` | figures/make_figures.py | lyapunov_W_timeseries.csv (lyapunov/verify_proof_plots.py) |
-| main tables (`T_main_discrete`, `T_main_continuous`, `T6_uncertainty`) | metric function in model/glioma_paper/metrics.py | results/tables/ |
+| main tables (`T_main_continuous`, `T6_uncertainty`) | metric function in model/glioma_paper/metrics.py | results/tables/ |
 | tables as printed in the paper (metrics of the controllers, replay test, observers, mu-synthesis tests, 5/28 comparison, Lyapunov groups) | tables/*.py | results/tables/paper/, `T_protocol_comparison`, `T_lyapunov_groups_v2` |
 | `T_observer`, `T_app_observer_*` | observer/observer.py | results/tables/ |
 | `T_design_pid`, `T_design_smc`, `T_app_tuning_runs` | controllers/pid, controllers/smc, tuning/ | results/tables/ |
@@ -99,10 +100,8 @@ figure family); the larger files are stored gzipped and are read as they are.
 - Baseline: `model/baseline_max_dose.py` stops the drug on the first day with x2 < 1e-4, the suppression
   threshold of the paper. The run stops on day 236, with a cumulative dose of 47200 mg m^-2, x3(T) = 0.476 and
   glial recovery on day 664 (`results/tables/baseline_metrics_v2.json`, written by `model/baseline_metrics.py`).
-- The baseline entries of `data/metrics_all.csv`, `results/tables/T_main_discrete.*`,
-  `results/tables/T_app_baseline_protocols.*` and Section 3 of `FACTS_FINAL.md` belong to a run with the stop
-  criterion x2 <= 1e-5 (day 299, 59800 mg m^-2). The paper uses `baseline_metrics_v2.json` and
-  `results/tables/paper/controller_summary_rows.tex` for the baseline.
+- The baseline row of `data/metrics_all.csv` was updated from `baseline_metrics_v2.json`. The tables printed
+  in the paper are in `results/tables/paper/`.
 - `figures/make_figures_v2.py` uses the style settings of `make_figures.py`. Its observer figures read
   `observer/results/`, and its noise figure recomputes the 20 noise sequences with the functions of
   `observer/observer.py`.
@@ -111,3 +110,11 @@ figure family); the larger files are stored gzipped and are read as they are.
 
 ## License and citation
 MIT License (`LICENSE`). Please cite the article (`CITATION.cff`).
+
+## Scripts and results not used in the paper
+- The continuous SMC in `controllers/smc/smc_simulation.py` (`nominal_continuous.csv`, `fig_continuous`).
+- The closed-loop runs of the discrete SMC on the perturbed plants G1 to G5 in `lyapunov/verify_proof_plots.py`
+  (protocol `closed_loop` in `lyapunov_wdot_summary.csv`). They were made only to evaluate the Lyapunov function;
+  their dose and phase metrics were not computed. In the paper, PID and SMC are evaluated on the perturbed
+  plants by the replay test only.
+- The appendix figures of `figures/make_figures.py` (`fig_app_*`).
