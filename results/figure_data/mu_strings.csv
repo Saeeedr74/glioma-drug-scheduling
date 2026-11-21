@@ -1,0 +1,9 @@
+key,value
+version,mu_opt_v1
+design,D1
+search_winner_tag,D1
+search_objective,"J = Jtrack/Jtrack_B + 2*Jprot + max(0,mu_peak-1) + failed_redesign_fraction; Jtrack = mean((log10(max(x2,1e-4)) - log10(max(r,1e-4)))^2); Jprot = sum(max(0,run_days-4)^2)/(T/28); bayesopt minimizes log10(1+J)"
+rule1,"cap 40"
+rule2,"stop at x2 < 0.001"
+rule3,"stop at x2 < 0.0001"
+rule4,"no stop, no cap"

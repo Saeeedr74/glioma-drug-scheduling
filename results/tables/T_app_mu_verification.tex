@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Identity checks of the initial $\mu$-synthesis design (largest relative error over 60 frequencies between $10^{-4}$ and $10$ rad\,day$^{-1}$).}
+\label{tab:mu_verification}
+\small
+\begin{tabular}{lc}
+\toprule
+Check & Relative error \\
+\midrule
+Weights against their formulas & $5.06{\times}10^{-16}$ \\
+Uncertain generalized plant against the analytic expression & $9.97{\times}10^{-16}$ \\
+Generalized plant against an independent interconnection & $9.81{\times}10^{-16}$ \\
+Controller scaling to physical units & $7.88{\times}10^{-9}$ \\
+Exact zero-order-hold discretization against \texttt{c2d} & $1.74{\times}10^{-6}$ \\
+\bottomrule
+\end{tabular}
+\end{table}

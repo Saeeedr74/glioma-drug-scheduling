@@ -1,0 +1,24 @@
+\begin{table}[htbp]
+\centering
+\caption{Nominal results with continuous dosing ($0\le u\le 200~\mathrm{mg\,m^{-2}\,day^{-1}}$). The final code has no continuous PID run.}
+\label{tab:continuous_summary}
+\small
+\begin{tabular}{lcc}
+\toprule
+Metric & SMC & $\mu$-synthesis \\
+\midrule
+First day with $x_2<10^{-4}$ (days) & 1204 & 1169 \\
+Glial recovery, $x_1\ge 0.99$ to $T$ (days) & 1040 & 1048 \\
+$x_2(T)$ & $0$ & $6.414{\times}10^{-7}$ \\
+$x_3(T)$ & 0.3991 & 0.3926 \\
+Cumulative dose, sum of daily doses ($\mathrm{mg\,m^{-2}}$) & 102339 & 145032 \\
+Cumulative dose, trapezoidal rule ($\mathrm{mg\,m^{-2}}$) & 102334 & 145061 \\
+Mean daily dose ($\mathrm{mg\,m^{-2}\,day^{-1}}$) & 51.17 & 72.52 \\
+Largest daily dose ($\mathrm{mg\,m^{-2}\,day^{-1}}$) & 200.0 & 160.8 \\
+Smallest daily dose ($\mathrm{mg\,m^{-2}\,day^{-1}}$) & 0.0 & 0.0 \\
+Tracking RMSE / $x_2(0)$ & 0.01357 & 0.00619 \\
+Day the controller is switched off ($x_2\le10^{-5}$) & 1267 & --- \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize The continuous SMC run of the code stops when $x_2\le10^{-5}$ (simulation stop criterion), then sets $x_2=0$ and $u=0$; its $x_2(T)=0$ follows from that rule.
+\end{table}

@@ -1,0 +1,21 @@
+\begin{table*}[htbp]
+\centering
+\caption{Differential-evolution tuning of the PID and SMC parameters: objective $J=J_{\mathrm{track}}/J_{\mathrm{track,ref}}+2J_{\mathrm{prot}}+2J_{\mathrm{sw}}$ of the hand design and of the best member of each of the three runs. The run with the smallest $J$ (seed 7 for both controllers) gives the parameters used.}
+\label{tab:tuning_runs}
+\small
+\begin{tabular}{llcccccc}
+\toprule
+Controller & Run & $J$ & $J_{\mathrm{track}}/J_{\mathrm{track,ref}}$ & $J_{\mathrm{prot}}$ & $J_{\mathrm{sw}}$ & High-dose phases & Evaluations \\
+\midrule
+PID & Hand design (start) & 10.3240 & 1.0000 & 4.662 & 0.000 & 35 & --- \\
+ & Seed 7 & 0.06105 & 0.06105 & 0.000 & 0.000 & 71 & 22500 \\
+ & Seed 11 & 0.06249 & 0.06249 & 0.000 & 0.000 & 71 & 22500 \\
+ & Seed 23 & 0.06168 & 0.06168 & 0.000 & 0.000 & 71 & 22500 \\
+\addlinespace
+SMC & Hand design (start) & 1.0280 & 1.0000 & 0.014 & 0.000 & 53 & --- \\
+ & Seed 7 & 0.01481 & 0.01481 & 0.000 & 0.000 & 71 & 15645 \\
+ & Seed 11 & 0.01591 & 0.01591 & 0.000 & 0.000 & 71 & 15645 \\
+ & Seed 23 & 0.01665 & 0.01665 & 0.000 & 0.000 & 71 & 15645 \\
+\bottomrule
+\end{tabular}
+\end{table*}

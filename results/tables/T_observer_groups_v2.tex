@@ -1,0 +1,31 @@
+\begin{table*}[htbp]
+\centering
+\caption{Observer accuracy on the nominal and perturbed plants with the nominal observer model, $\mu$-synthesis schedule, daily noise-free measurement (M1), initial error of $-20\%$ / $+20\%$ in $\hat{x}_1(0)$. div.: diverged.}
+\label{tab:observer_groups}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llcccc}
+\toprule
+Plant & Observer & $e_1(2000)$ & $e_2(2000)$ & Error of $\hat x_1$ at day 2000 (\%) & Diverged on day \\
+\midrule
+Nominal & EKF & $1.54{\times}10^{-7}$ / $8.34{\times}10^{-8}$ & $1.72{\times}10^{-10}$ / $9.35{\times}10^{-11}$ & $-1.54{\times}10^{-5}$ / $8.34{\times}10^{-6}$ & no / no \\
+ & Luenberger & $8.79{\times}10^{-6}$ / $8.79{\times}10^{-6}$ & $4.32{\times}10^{-6}$ / $4.32{\times}10^{-6}$ & $-8.79{\times}10^{-4}$ / $-8.79{\times}10^{-4}$ & no / no \\
+\addlinespace
+G1 & EKF & 2.03 / 1.54 & $7.54{\times}10^{-4}$ / $2.16{\times}10^{-4}$ & $-203.16$ / $-153.68$ & no / no \\
+ & Luenberger & 2.55 / div. & 0.02 / div. & $-254.71$ / div. & no / day 393 \\
+\addlinespace
+G2 & EKF & 0.02 / 0.02 & $5.37{\times}10^{-4}$ / $5.37{\times}10^{-4}$ & $-1.69$ / $-1.69$ & no / no \\
+ & Luenberger & 0.18 / 0.18 & 0.03 / 0.03 & $-17.71$ / $-17.71$ & no / no \\
+\addlinespace
+G3 & EKF & 1.03 / 1.03 & $5.71{\times}10^{-5}$ / $5.71{\times}10^{-5}$ & $-103.24$ / $-103.24$ & no / no \\
+ & Luenberger & div. / div. & div. / div. & div. / div. & day 1435 / day 1435 \\
+\addlinespace
+G4 & EKF & 1.19 / 1.19 & $1.08{\times}10^{-4}$ / $1.08{\times}10^{-4}$ & $-118.83$ / $-118.83$ & no / no \\
+ & Luenberger & div. / div. & div. / div. & div. / div. & day 328 / day 243 \\
+\addlinespace
+G5 & EKF & 1.19 / 1.19 & $1.10{\times}10^{-4}$ / $1.11{\times}10^{-4}$ & $-119.09$ / $-119.09$ & no / no \\
+ & Luenberger & 1.40 / 1.40 & 0.01 / 0.01 & $-140.49$ / $-140.49$ & no / no \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

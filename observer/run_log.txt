@@ -1,0 +1,44 @@
+observer.py - 2026-11-16 13:30:42 - Python 3.13.0, numpy 2.2.4, pandas 3.1.1
+SETTINGS: DELTA=0.2, SIGMA=0.1, TM_LIST=(7, 28), N_SEEDS=20, SEED_BASE=20261115, CONV_THR=0.01, TRIGGER=0.005, K_OBS=2.0, P_MIN=0.01, POLE_SEP=1.2, FD_REL=1e-06, FD_X4_REL=0.01, EKF_Q_REL=0.001, EKF_R_REL_M1=0.001, N_SEEDS_TIMESERIES=5, N_WORKERS=11
+==============================================================================
+STEP 1 - dose schedules
+==============================================================================
+[mu] controllers\mu_synthesis\u_schedule_mu.csv
+  checks: a=pass, b=pass, d=pass, e=pass
+  dose stats (days 0..1999): {'first_x2': 1167, 'cum_dose': 142150.0, 'n_hi': 65, 'hi_max': 5, 'hi_mean': 4.323076923076923, 'x2_2000': 1.2517481516492407e-06}
+[pid] results\runs\pid_simulation.csv
+  checks: a=pass, b=pass, d=pass, e=pass
+  dose stats (days 0..1999): {'first_x2': 1166, 'cum_dose': 131350.0, 'n_hi': 71, 'hi_max': 4, 'hi_mean': 2.943661971830986, 'x2_2000': 1.583944136247697e-05}
+[smc] results\runs\smc_simulation.csv
+  checks: a=pass, b=pass, d=pass, e=pass
+  dose stats (days 0..1999): {'first_x2': 1165, 'cum_dose': 140050.0, 'n_hi': 71, 'hi_max': 4, 'hi_mean': 3.76056338028169, 'x2_2000': 2.050202701851703e-06}
+==============================================================================
+STEP 2 - model checks at x_pre
+==============================================================================
+  A (2-state) at x_pre, x4 = 0:
+[[-0.007972 -0.012077]
+ [-0.000565  0.003263]]
+  central-difference vs analytic Jacobian: max rel. error 5.2e-10
+  eig(A) = [-0.008549  0.00384 ]  (one positive eigenvalue)
+  old pole rule 2*eig(A) = [-0.017098  0.00768 ]  -> UNSTABLE observer pole
+  new pole rule p = [-0.01     -0.017098], time constants [100.   58.5] d; eig(A - L C) = [-0.01     -0.017098]
+  rank [C; CA] (2 states) = 2, cond = 1.771e+03
+  rank of the 3-state observability matrix [C; CA; CA^2] with y = x2 = 2 (x3 unobservable)
+==============================================================================
+STEP 3 - observer runs
+==============================================================================
+  108 tasks, 4428 runs, 11 worker processes
+  18/108 tasks done, 58 s
+  36/108 tasks done, 80 s
+  54/108 tasks done, 134 s
+  72/108 tasks done, 161 s
+  90/108 tasks done, 237 s
+  108/108 tasks done, 246 s
+  all runs finished in 246.1 s
+==============================================================================
+STEP 4 - outputs
+==============================================================================
+  metrics_all.csv (4428 runs), summary_by_scenario.csv, comparison_table.md/.csv, rank_deficient_updates.csv (228 rows)
+  timeseries: truth_<ctrl>.csv.gz and 27 est_<observer>_<ctrl>_<mode>.csv.gz files
+  figures: fig_mu_M1_nominal, fig_pid_M1_nominal, fig_smc_M1_nominal, fig_e1_controllers_M1, fig_e1_groups_M1, fig_e1_noise_sparse, fig_ekf_sd_observability (png 300 dpi + pdf)
+done in 280 s

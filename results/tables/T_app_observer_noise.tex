@@ -1,0 +1,32 @@
+\begin{table*}[htbp]
+\centering
+\caption{Observers with noisy and sparse measurements of $x_2$ on the nominal plant (multiplicative noise, 20 seeds, initial error $+20\%$): median / worst over the seeds. n.c.: not converged by day 2000.}
+\label{tab:observer_noise}
+\small
+\begin{tabular}{lllcccc}
+\toprule
+Measurement & Schedule & Observer & Convergence day & RMS $e_1$, days 100--2000 & $e_1(2000)$ & Not converged \\
+\midrule
+Daily, $\sigma=0.1$ & $\mu$-synthesis & EKF & 458 / 566 & $1.85{\times}10^{-2}$ / $3.42{\times}10^{-2}$ & $2.69{\times}10^{-4}$ / $7.56{\times}10^{-4}$ & 0/20 \\
+ &  & Luenberger & 1955 / n.c. & $4.24{\times}10^{-2}$ / $6.87{\times}10^{-2}$ & $4.67{\times}10^{-3}$ / $1.38{\times}10^{-2}$ & 3/20 \\
+ & PID & EKF & 449 / 566 & $1.85{\times}10^{-2}$ / $3.41{\times}10^{-2}$ & $2.69{\times}10^{-4}$ / $7.56{\times}10^{-4}$ & 0/20 \\
+ &  & Luenberger & 1946 / 2000 & $3.63{\times}10^{-2}$ / $5.94{\times}10^{-2}$ & $3.32{\times}10^{-3}$ / $9.70{\times}10^{-3}$ & 0/20 \\
+ & SMC & EKF & 449 / 566 & $1.85{\times}10^{-2}$ / $3.41{\times}10^{-2}$ & $2.69{\times}10^{-4}$ / $7.56{\times}10^{-4}$ & 0/20 \\
+ &  & Luenberger & 1911 / n.c. & $4.17{\times}10^{-2}$ / $5.80{\times}10^{-2}$ & $4.68{\times}10^{-3}$ / $1.01{\times}10^{-2}$ & 1/20 \\
+\addlinespace
+Every 7 days, $\sigma=0.1$ & $\mu$-synthesis & EKF & 532 / 654 & $2.64{\times}10^{-2}$ / $3.88{\times}10^{-2}$ & $1.44{\times}10^{-4}$ / $5.18{\times}10^{-4}$ & 0/20 \\
+ &  & Luenberger & 1974 / n.c. & $8.38{\times}10^{-2}$ / $1.06{\times}10^{-1}$ & $8.79{\times}10^{-3}$ / $3.63{\times}10^{-2}$ & 9/20 \\
+ & PID & EKF & 532 / 651 & $2.63{\times}10^{-2}$ / $3.86{\times}10^{-2}$ & $1.44{\times}10^{-4}$ / $5.18{\times}10^{-4}$ & 0/20 \\
+ &  & Luenberger & 1984 / n.c. & $6.33{\times}10^{-2}$ / $8.14{\times}10^{-2}$ & $8.99{\times}10^{-3}$ / $2.41{\times}10^{-2}$ & 8/20 \\
+ & SMC & EKF & 532 / 651 & $2.63{\times}10^{-2}$ / $3.86{\times}10^{-2}$ & $1.44{\times}10^{-4}$ / $5.18{\times}10^{-4}$ & 0/20 \\
+ &  & Luenberger & 1978 / n.c. & $7.75{\times}10^{-2}$ / $9.84{\times}10^{-2}$ & $9.30{\times}10^{-3}$ / $3.03{\times}10^{-2}$ & 10/20 \\
+\addlinespace
+Every 28 days, $\sigma=0.1$ & $\mu$-synthesis & EKF & 560 / 679 & $2.86{\times}10^{-2}$ / $4.82{\times}10^{-2}$ & $1.26{\times}10^{-4}$ / $3.64{\times}10^{-4}$ & 0/20 \\
+ &  & Luenberger & 1988 / n.c. & $1.20{\times}10^{-1}$ / $1.65{\times}10^{-1}$ & $1.88{\times}10^{-2}$ / $3.84{\times}10^{-2}$ & 14/20 \\
+ & PID & EKF & 560 / 676 & $2.84{\times}10^{-2}$ / $4.77{\times}10^{-2}$ & $1.26{\times}10^{-4}$ / $3.64{\times}10^{-4}$ & 0/20 \\
+ &  & Luenberger & 1988 / n.c. & $9.94{\times}10^{-2}$ / $1.63{\times}10^{-1}$ & $1.66{\times}10^{-2}$ / $4.17{\times}10^{-2}$ & 13/20 \\
+ & SMC & EKF & 560 / 675 & $2.84{\times}10^{-2}$ / $4.77{\times}10^{-2}$ & $1.26{\times}10^{-4}$ / $3.64{\times}10^{-4}$ & 0/20 \\
+ &  & Luenberger & 1988 / n.c. & $1.20{\times}10^{-1}$ / $1.63{\times}10^{-1}$ & $1.60{\times}10^{-2}$ / $3.84{\times}10^{-2}$ & 14/20 \\
+\bottomrule
+\end{tabular}
+\end{table*}

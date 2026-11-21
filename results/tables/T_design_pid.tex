@@ -1,0 +1,29 @@
+\begin{table}[htbp]
+\centering
+\caption{PID design parameters used in the simulations. Tuned values are from the differential-evolution search; the last six rows follow from $K^{\mathrm{init}}=mX_{\mathrm{gain}}$ and $K^{\mathrm{final}}=K^{\mathrm{init}}/Y_{\mathrm{gain}}$.}
+\label{tab:pid-params}
+\small
+\begin{tabular}{lcc}
+\toprule
+Item & Value & Search range (scale) \\
+\midrule
+Reference shaping $a$ & $7.5$ & --- \\
+Reference shaping $b$ & $0$ & --- \\
+Maintenance dose $u_{\min}$ ($\mathrm{mg\,m^{-2}\,day^{-1}}$) & $50$ & --- \\
+High dose $u_{\max}$ ($\mathrm{mg\,m^{-2}\,day^{-1}}$) & $200$ & --- \\
+Common scale of the initial gains $X_{\mathrm{gain}}$ (fixed) & $10^{9}$ & --- \\
+Multiplier $m_p$ ($K_p^{\mathrm{init}}=m_pX_{\mathrm{gain}}$) & $7.5076$ & $[1,\ 100]$ (log) \\
+Multiplier $m_i$ ($K_i^{\mathrm{init}}=m_iX_{\mathrm{gain}}$) & $0.53788$ & $[0.18,\ 18]$ (log) \\
+Multiplier $m_d$ ($K_d^{\mathrm{init}}=m_dX_{\mathrm{gain}}$) & $0.74070$ & $[0.33,\ 33]$ (log) \\
+Initial-to-final gain ratio $Y_{\mathrm{gain}}$ & $6.7641{\times}10^{5}$ & $[200000,\ 2{\times}10^{7}]$ (log) \\
+Gain-schedule sharpness $a_K$ & $14.905$ & $[2,\ 15]$ (log) \\
+Gain-schedule offset $b_K$ & $0.37599$ & $[0,\ 1]$ (lin) \\
+$K_p^{\mathrm{init}}$ & $7.5076{\times}10^{9}$ & --- \\
+$K_i^{\mathrm{init}}$ & $5.3788{\times}10^{8}$ & --- \\
+$K_d^{\mathrm{init}}$ & $7.4070{\times}10^{8}$ & --- \\
+$K_p^{\mathrm{final}}$ & $11099$ & --- \\
+$K_i^{\mathrm{final}}$ & $795.19$ & --- \\
+$K_d^{\mathrm{final}}$ & $1095.0$ & --- \\
+\bottomrule
+\end{tabular}
+\end{table}

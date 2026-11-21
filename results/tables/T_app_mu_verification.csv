@@ -1,0 +1,6 @@
+check,relative_error
+verif.err_weights,5.058502412800892e-16
+verif.err_interconnect,9.97146407823359e-16
+verif.err_vs_connect,9.811164972502974e-16
+verif.err_scaling,7.875582713462169e-09
+verif.err_zoh,1.7379245403180458e-06

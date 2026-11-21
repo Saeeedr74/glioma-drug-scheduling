@@ -1,0 +1,22 @@
+\begin{table*}[htbp]
+\centering
+\caption{Observer accuracy with noisy measurements ($\sigma=0.1$) on the nominal plant, $\mu$-synthesis schedule, initial error of $+20\%$ (M2, M3): median / largest over 20 noise sequences.}
+\label{tab:observer_noise}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llcccc}
+\toprule
+Measurement & Observer & Converged runs & Convergence day & RMS $e_1$, days 100--2000 & $e_1(2000)$ \\
+\midrule
+Daily (M2) & EKF & 20/20 & 458 / 566 & 0.02 / 0.03 & $2.69{\times}10^{-4}$ / $7.56{\times}10^{-4}$ \\
+ & Luenberger & 17/20 & 1955 / n.c. & 0.04 / 0.07 & $4.67{\times}10^{-3}$ / 0.01 \\
+\addlinespace
+Every 7 days (M3) & EKF & 20/20 & 532 / 654 & 0.03 / 0.04 & $1.44{\times}10^{-4}$ / $5.18{\times}10^{-4}$ \\
+ & Luenberger & 11/20 & 1974 / n.c. & 0.08 / 0.11 & $8.79{\times}10^{-3}$ / 0.04 \\
+\addlinespace
+Every 28 days (M3) & EKF & 20/20 & 560 / 679 & 0.03 / 0.05 & $1.26{\times}10^{-4}$ / $3.64{\times}10^{-4}$ \\
+ & Luenberger & 6/20 & 1988 / n.c. & 0.12 / 0.17 & 0.02 / 0.04 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

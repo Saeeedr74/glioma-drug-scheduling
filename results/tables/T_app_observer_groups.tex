@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\caption{Observers on the perturbed plants (daily noise-free measurement, three schedules, both initial errors): the observers keep the nominal model. Ranges over the runs that did not diverge.}
+\label{tab:observer_groups}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Observer & $e_1(2000)$, G1, G3, G4, G5 & $e_1(2000)$, G2 & Largest $e_2(2000)$ & Diverged runs \\
+\midrule
+EKF & 0.97--2.04 & 0.017--0.017 & 0.08\% & 0/30 \\
+Luenberger (sampled-data) & 1.03--2.55 & 0.145--0.177 & 3.82\% & 8/30 \\
+Luenberger (continuous form) & 0.87--2.06 & 0.144--0.177 & 3.83\% & 9/30 \\
+\bottomrule
+\end{tabular}
+\end{table}

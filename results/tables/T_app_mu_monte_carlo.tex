@@ -1,0 +1,15 @@
+\begin{table*}[htbp]
+\centering
+\caption{Monte Carlo test of the $\mu$-synthesis design: nine model parameters drawn uniformly within the bounds of the five groups (seed 2024). Reach: runs in which $x_2$ falls below $10^{-4}$ on some day, with the exact 95\% confidence interval of the proportion.}
+\label{tab:mu_mc}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+Case & Median $x_2(T)$ & Worst $x_2(T)$ & Reach & 95\% CI & Longest high-dose phase, mean / worst (days) & Runs with a phase $>5$ days \\
+\midrule
+Schedule replay, 300 samples & $7.705{\times}10^{-7}$ & $4.215{\times}10^{-1}$ & 225/300 & 0.70--0.80 & --- & --- \\
+Schedule replay, first 20 samples & $2.884{\times}10^{-5}$ & $4.215{\times}10^{-1}$ & 13/20 & 0.41--0.85 & --- & --- \\
+Controller in the loop, first 20 samples & $1.474{\times}10^{-6}$ & $3.672{\times}10^{-6}$ & 20/20 & 0.83--1.00 & 6.2 / 10 & 13 \\
+\bottomrule
+\end{tabular}
+\end{table*}

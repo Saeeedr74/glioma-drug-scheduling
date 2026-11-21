@@ -1,0 +1,31 @@
+\begin{table*}[htbp]
+\centering
+\caption{Observer accuracy on the nominal and perturbed plants with the nominal observer model, daily noise-free measurement (M1): range over the three schedules, initial error of $-20\%$ / $+20\%$ in $\hat{x}_1(0)$. Diverged runs are excluded from the ranges; div.: all three diverged.}
+\label{tab:observer_groups}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llcccc}
+\toprule
+Plant & Observer & $e_1(2000)$ & $e_2(2000)$ & Error of $\hat x_1$ at day 2000 (\%) & Diverged runs (of 3) \\
+\midrule
+Nominal & EKF & $1.49{\times}10^{-7}$ to $1.54{\times}10^{-7}$ / $8.10{\times}10^{-8}$ to $8.34{\times}10^{-8}$ & $1.67{\times}10^{-10}$ to $1.72{\times}10^{-10}$ / $9.08{\times}10^{-11}$ to $9.35{\times}10^{-11}$ & $-1.54{\times}10^{-5}$ to $-1.49{\times}10^{-5}$ / $8.10{\times}10^{-6}$ to $8.34{\times}10^{-6}$ & 0 / 0 \\
+ & Luenberger & $1.53{\times}10^{-7}$ to $8.79{\times}10^{-6}$ / $1.53{\times}10^{-7}$ to $8.79{\times}10^{-6}$ & $5.39{\times}10^{-8}$ to $4.32{\times}10^{-6}$ / $5.39{\times}10^{-8}$ to $4.32{\times}10^{-6}$ & $-8.79{\times}10^{-4}$ to $7.51{\times}10^{-4}$ / $-8.79{\times}10^{-4}$ to $7.51{\times}10^{-4}$ & 0 / 0 \\
+\addlinespace
+G1 & EKF & 2.03 to 2.04 / 1.54 to 2.04 & $7.49{\times}10^{-4}$ to $7.54{\times}10^{-4}$ / $2.16{\times}10^{-4}$ to $7.51{\times}10^{-4}$ & $-203.55$ to $-202.91$ / $-203.55$ to $-153.68$ & 0 / 0 \\
+ & Luenberger & 1.54 to 2.55 / 2.06 & $3.11{\times}10^{-3}$ to 0.02 / 0.02 & $-254.71$ to $-154.36$ / $-205.67$ & 0 / 2 \\
+\addlinespace
+G2 & EKF & 0.02 / 0.02 & $5.37{\times}10^{-4}$ / $5.37{\times}10^{-4}$ & $-1.69$ to $-1.68$ / $-1.69$ to $-1.68$ & 0 / 0 \\
+ & Luenberger & 0.14 to 0.18 / 0.14 to 0.18 & 0.03 to 0.04 / 0.03 to 0.04 & $-17.71$ to $-14.47$ / $-17.71$ to $-14.47$ & 0 / 0 \\
+\addlinespace
+G3 & EKF & 0.97 to 1.03 / 0.97 to 1.03 & $1.75{\times}10^{-5}$ to $5.71{\times}10^{-5}$ / $1.75{\times}10^{-5}$ to $5.71{\times}10^{-5}$ & $-103.24$ to $-96.68$ / $-103.24$ to $-96.68$ & 0 / 0 \\
+ & Luenberger & 1.03 / 1.03 & $3.71{\times}10^{-3}$ / $3.71{\times}10^{-3}$ & $-102.74$ / $-102.74$ & 2 / 2 \\
+\addlinespace
+G4 & EKF & 1.16 to 1.19 / 1.16 to 1.19 & $7.74{\times}10^{-5}$ to $1.08{\times}10^{-4}$ / $7.74{\times}10^{-5}$ to $1.08{\times}10^{-4}$ & $-118.83$ to $-116.21$ / $-118.83$ to $-116.21$ & 0 / 0 \\
+ & Luenberger & 1.21 to 1.25 / 1.21 to 1.25 & $5.40{\times}10^{-3}$ to $7.51{\times}10^{-3}$ / $5.40{\times}10^{-3}$ to $7.51{\times}10^{-3}$ & $-125.08$ to $-121.03$ / $-125.08$ to $-121.03$ & 1 / 1 \\
+\addlinespace
+G5 & EKF & 1.17 to 1.19 / 1.17 to 1.19 & $7.92{\times}10^{-5}$ to $1.10{\times}10^{-4}$ / $7.92{\times}10^{-5}$ to $1.11{\times}10^{-4}$ & $-119.09$ to $-116.67$ / $-119.09$ to $-116.67$ & 0 / 0 \\
+ & Luenberger & 1.15 to 1.40 / 1.15 to 1.40 & $7.72{\times}10^{-4}$ to 0.01 / $7.72{\times}10^{-4}$ to 0.01 & $-140.49$ to $-115.13$ / $-140.49$ to $-115.13$ & 0 / 0 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

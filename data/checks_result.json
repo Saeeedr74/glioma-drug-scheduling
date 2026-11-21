@@ -1,0 +1,438 @@
+{
+ "all_pass": true,
+ "n": 72,
+ "results": [
+  {
+   "check": "0",
+   "item": "x_pre = [0.670934, 0.313731, 0.517817, 0] to 1e-6",
+   "passed": true,
+   "detail": "x_pre = ['0.670934', '0.313731', '0.517817', '0.000000']; max deviation 4.65e-07; max |own - package csv| over 601 days = 0.0e+00"
+  },
+  {
+   "check": "a",
+   "item": "PID schedule",
+   "passed": true,
+   "detail": "doses logged by the code: 2001 (days 0..2000); used: days 0..1999 (2000 doses), NaN 0, values [np.int64(50), np.int64(200)]"
+  },
+  {
+   "check": "a",
+   "item": "SMC schedule",
+   "passed": true,
+   "detail": "doses logged by the code: 2000 (days 0..1999); used: days 0..1999 (2000 doses), NaN 0, values [np.int64(50), np.int64(200)]"
+  },
+  {
+   "check": "a",
+   "item": "mu schedule",
+   "passed": true,
+   "detail": "doses logged by the code: 2001 (days 0..2000); used: days 0..1999 (2000 doses), NaN 0, values [np.int64(50), np.int64(200)]"
+  },
+  {
+   "check": "a",
+   "item": "SMC schedule length",
+   "passed": true,
+   "detail": "SMC logs 2000 doses (days 0..1999): accepted by the stage file; PID and mu log 2001 (the dose of day 2000 acts outside the horizon and is not used)"
+  },
+  {
+   "check": "a",
+   "item": "mu continuous dose",
+   "passed": true,
+   "detail": "2001 rows, NaN 0, range [0, 160.8]"
+  },
+  {
+   "check": "b",
+   "item": "PID discrete schedule replay",
+   "passed": true,
+   "detail": "max |dx2|/max(x2,1e-12) = 0.00e+00 (all four states: max abs deviation 0.0e+00)"
+  },
+  {
+   "check": "b",
+   "item": "SMC discrete schedule replay",
+   "passed": true,
+   "detail": "max |dx2|/max(x2,1e-12) = 0.00e+00 (all four states: max abs deviation 0.0e+00)"
+  },
+  {
+   "check": "b",
+   "item": "mu discrete schedule replay",
+   "passed": true,
+   "detail": "max |dx2|/max(x2,1e-12) = 4.71e-15 (all four states: max abs deviation 5.1e-13)"
+  },
+  {
+   "check": "b",
+   "item": "mu continuous dose replay",
+   "passed": true,
+   "detail": "max |dx2|/max(x2,1e-12) = 5.55e-15 vs mu_opt_u_D1_continuous.csv; x1..x4 vs the .mat: max abs deviation 1.0e-12"
+  },
+  {
+   "check": "b",
+   "item": "mu discrete vs mu_py_timeseries.csv (nominal rows)",
+   "passed": true,
+   "detail": "max rel dx2 = 4.71e-15; same doses on days 0..1999: True; same as mu_opt_u_miu_column.csv: True"
+  },
+  {
+   "check": "b",
+   "item": "PID E1 replays vs pid_uncertainty.csv",
+   "passed": true,
+   "detail": "largest max rel dx2 over nominal + G1..G5 = 0.00e+00"
+  },
+  {
+   "check": "b",
+   "item": "SMC E1 replays vs smc_uncertainty.csv",
+   "passed": true,
+   "detail": "largest max rel dx2 over nominal + G1..G5 = 0.00e+00"
+  },
+  {
+   "check": "b",
+   "item": "mu E1 replays vs mu_py_timeseries.csv (E1_replay)",
+   "passed": true,
+   "detail": "largest max rel dx2 over nominal + G1..G5 = 4.98e-15"
+  },
+  {
+   "check": "b",
+   "item": "standard_5_28_dose200",
+   "passed": true,
+   "detail": "max rel dx2 = 0.00e+00; schedule is 5 days on / 23 days off: True"
+  },
+  {
+   "check": "b",
+   "item": "standard_5_28_dose400",
+   "passed": true,
+   "detail": "max rel dx2 = 0.00e+00; schedule is 5 days on / 23 days off: True"
+  },
+  {
+   "check": "b",
+   "item": "SMC continuous (until its stop day)",
+   "passed": true,
+   "detail": "max rel dx2 = 0.00e+00 on days 0..1266; on day 1267 the code sets x2 := 0 (x2 = 9.744e-06 <= 1e-5, stop criterion) and u = 0 afterwards (True)"
+  },
+  {
+   "check": "b",
+   "item": "maximum-dose baseline (until its switch-off day)",
+   "passed": true,
+   "detail": "max rel dx2 = 0.00e+00 on days 0..298; switch-off on day 299 (x2 = 9.927e-06 <= 1e-5)"
+  },
+  {
+   "check": "b",
+   "item": "mu E2 schedules replayed on their perturbed plants",
+   "passed": true,
+   "detail": "largest max rel dx2 = 4.85e-15 (consistency of the logged E2 runs)"
+  },
+  {
+   "check": "c",
+   "item": "regen/PID/pid_simulation.py",
+   "passed": true,
+   "detail": "patterns found 3/3: ^PID_A_REF = 7.5b; ^PID_B_REF = 0.0b; ^T_REF = 2000.0b"
+  },
+  {
+   "check": "c",
+   "item": "regen/PID/pid_uncertainty.py",
+   "passed": true,
+   "detail": "patterns found 3/3: ^PID_A_REF = 7.5b; ^PID_B_REF = 0.0b; ^T_REF = 2000.0b"
+  },
+  {
+   "check": "c",
+   "item": "regen/SMC/smc_simulation.py",
+   "passed": true,
+   "detail": "patterns found 3/3: ^SMC_A_REF = 7.5b; ^SMC_B_REF = 0.0b; ^T_REF = 2000.0b"
+  },
+  {
+   "check": "c",
+   "item": "regen/SMC/smc_uncertainty.py",
+   "passed": true,
+   "detail": "patterns found 3/3: ^SMC_A_REF = 7.5b; ^SMC_B_REF = 0.0b; ^T_REF = 2000.0b"
+  },
+  {
+   "check": "c",
+   "item": "regen/Tuning/tune_pid_smc.py",
+   "passed": true,
+   "detail": "patterns found 4/4: ^A_REF_UNIFIED = 7.5b; ^PID_B_REF = 0.0b; ^SMC_B_REF = 0.0b; ^T_REF = 2000.0b"
+  },
+  {
+   "check": "c",
+   "item": "inputs/Miu Synthesis/mu_optimize_final.m",
+   "passed": true,
+   "detail": "patterns found 2/2: S.a = 7.5;s*S.b = 0;; S.T_ref = 2000;"
+  },
+  {
+   "check": "c",
+   "item": "PID logged reference = r(t; a=7.5, b=0, T=2000)",
+   "passed": true,
+   "detail": "max abs difference = 5.6e-17"
+  },
+  {
+   "check": "c",
+   "item": "SMC logged reference = r(t; a=7.5, b=0, T=2000)",
+   "passed": true,
+   "detail": "max abs difference = 5.6e-17"
+  },
+  {
+   "check": "c",
+   "item": "mu logged reference = r(t; a=7.5, b=0, T=2000)",
+   "passed": true,
+   "detail": "max abs difference = 5.6e-16"
+  },
+  {
+   "check": "c",
+   "item": "mu continuous and SMC continuous logged reference",
+   "passed": true,
+   "detail": "max abs difference = 5.6e-16 (mu), 5.6e-17 (SMC)"
+  },
+  {
+   "check": "c",
+   "item": "mu_opt_results.mat settings",
+   "passed": true,
+   "detail": "S.a = 7.5, S.b = 0, S.T_ref = 2000"
+  },
+  {
+   "check": "d",
+   "item": "mu discrete t_x2_first = 1167",
+   "passed": true,
+   "detail": "computed 1167"
+  },
+  {
+   "check": "d",
+   "item": "mu discrete t_x2_perm = 1167",
+   "passed": true,
+   "detail": "computed 1167"
+  },
+  {
+   "check": "d",
+   "item": "mu discrete t_x1_perm = 1046",
+   "passed": true,
+   "detail": "computed 1046"
+  },
+  {
+   "check": "d",
+   "item": "mu discrete cum_dose = 142150",
+   "passed": true,
+   "detail": "computed 142150"
+  },
+  {
+   "check": "d",
+   "item": "mu discrete n_hi = 65",
+   "passed": true,
+   "detail": "computed 65"
+  },
+  {
+   "check": "d",
+   "item": "mu discrete hi_max = 5",
+   "passed": true,
+   "detail": "computed 5"
+  },
+  {
+   "check": "d",
+   "item": "mu discrete n_hi_gt5 = 0",
+   "passed": true,
+   "detail": "computed 0"
+  },
+  {
+   "check": "d",
+   "item": "mu discrete x2(T) = 1.252e-6",
+   "passed": true,
+   "detail": "computed 1.251748e-06"
+  },
+  {
+   "check": "d",
+   "item": "mu discrete x3(T) = 0.3936",
+   "passed": true,
+   "detail": "computed 0.393602"
+  },
+  {
+   "check": "d",
+   "item": "mu E1 x2(T) G1 = 1.762e-04",
+   "passed": true,
+   "detail": "computed 1.762333e-04"
+  },
+  {
+   "check": "d",
+   "item": "mu E1 x2(T) G2 = 6.977e-06",
+   "passed": true,
+   "detail": "computed 6.977071e-06"
+  },
+  {
+   "check": "d",
+   "item": "mu E1 x2(T) G3 = 1.959e-04",
+   "passed": true,
+   "detail": "computed 1.959011e-04"
+  },
+  {
+   "check": "d",
+   "item": "mu E1 x2(T) G4 = 2.841e-04",
+   "passed": true,
+   "detail": "computed 2.840555e-04"
+  },
+  {
+   "check": "d",
+   "item": "mu E1 x2(T) G5 = 3.413e-04",
+   "passed": true,
+   "detail": "computed 3.413272e-04"
+  },
+  {
+   "check": "d",
+   "item": "mu sensitivity factor = 160.5",
+   "passed": true,
+   "detail": "computed 160.4946 (MATLAB: 160.4946)"
+  },
+  {
+   "check": "d",
+   "item": "mu continuous t_x2_first = 1169",
+   "passed": true,
+   "detail": "computed 1169"
+  },
+  {
+   "check": "d",
+   "item": "mu continuous x2(T) = 6.414e-7",
+   "passed": true,
+   "detail": "computed 6.414404e-07"
+  },
+  {
+   "check": "d",
+   "item": "mu continuous cumulative dose, both conventions",
+   "passed": true,
+   "detail": "trapz over days 0..2000 = 145060.50 (MATLAB printed 145061); sum of daily doses on days 0..1999 = 145031.97"
+  },
+  {
+   "check": "e",
+   "item": "PID t_x2_first",
+   "passed": true,
+   "detail": "computed 1166; PROVENANCE.md 1166; stage file 1166"
+  },
+  {
+   "check": "e",
+   "item": "PID cum_dose",
+   "passed": true,
+   "detail": "computed 131350; PROVENANCE.md 131350; stage file 131350"
+  },
+  {
+   "check": "e",
+   "item": "PID n_hi",
+   "passed": true,
+   "detail": "computed 71; PROVENANCE.md 71; stage file 71"
+  },
+  {
+   "check": "e",
+   "item": "PID hi_max",
+   "passed": true,
+   "detail": "computed 4; PROVENANCE.md 4; stage file 4"
+  },
+  {
+   "check": "e",
+   "item": "PID mean high-dose phase and x2(2000) vs PROVENANCE.md",
+   "passed": true,
+   "detail": "computed 2.944, 1.584e-05; PROVENANCE.md 2.944, 1.584e-05"
+  },
+  {
+   "check": "e",
+   "item": "PID vs the numbers its notebook printed (simulation_metrics)",
+   "passed": true,
+   "detail": "t_x2 first/perm 1166/1166 (nb 1166/1166); t_x1 perm 1042 (nb 1042); x2(T) 1.583944e-05 (nb 1.583944e-05); x3(T) 0.398091 (nb 0.398091)"
+  },
+  {
+   "check": "e",
+   "item": "PID phase statistics vs its notebook",
+   "passed": true,
+   "detail": "high-dose 71, mean 2.9437, max 4 (nb 71, 2.9437, 4); maintenance between high-dose phases 70, mean 15.1143 (nb 70, 15.1143)"
+  },
+  {
+   "check": "e",
+   "item": "PID E1 x2(T) and sensitivity factor vs pid_uncertainty.csv",
+   "passed": true,
+   "detail": "x2(T) identical in all six rows; sensitivity factor 116.0686 (own file 116.0686)"
+  },
+  {
+   "check": "e",
+   "item": "SMC t_x2_first",
+   "passed": true,
+   "detail": "computed 1165; PROVENANCE.md 1165; stage file 1165"
+  },
+  {
+   "check": "e",
+   "item": "SMC cum_dose",
+   "passed": true,
+   "detail": "computed 140050; PROVENANCE.md 140050; stage file 140050"
+  },
+  {
+   "check": "e",
+   "item": "SMC n_hi",
+   "passed": true,
+   "detail": "computed 71; PROVENANCE.md 71; stage file 71"
+  },
+  {
+   "check": "e",
+   "item": "SMC hi_max",
+   "passed": true,
+   "detail": "computed 4; PROVENANCE.md 4; stage file 4"
+  },
+  {
+   "check": "e",
+   "item": "SMC mean high-dose phase and x2(2000) vs PROVENANCE.md",
+   "passed": true,
+   "detail": "computed 3.761, 2.05e-06; PROVENANCE.md 3.761, 2.05e-06"
+  },
+  {
+   "check": "e",
+   "item": "SMC vs the numbers its notebook printed (simulation_metrics)",
+   "passed": true,
+   "detail": "t_x2 first/perm 1165/1165 (nb 1165/1165); t_x1 perm 1042 (nb 1042); x2(T) 2.050203e-06 (nb 2.050203e-06); x3(T) 0.397900 (nb 0.397900)"
+  },
+  {
+   "check": "e",
+   "item": "SMC phase statistics vs its notebook",
+   "passed": true,
+   "detail": "high-dose 71, mean 3.7606, max 4 (nb 71, 3.7606, 4); maintenance between high-dose phases 70, mean 21.0571 (nb 70, 21.0571) [notebook row with the t = 0 placeholder excluded]"
+  },
+  {
+   "check": "e",
+   "item": "SMC E1 x2(T) and sensitivity factor vs smc_uncertainty.csv",
+   "passed": true,
+   "detail": "x2(T) identical in all six rows; sensitivity factor 150.4247 (own file 150.4247)"
+  },
+  {
+   "check": "e",
+   "item": "Table 6 protocol = E1 in pid_uncertainty / smc_uncertainty",
+   "passed": true,
+   "detail": "all groups start from the nominal x_pre and receive the nominal schedule (methods in the CSVs: ['check_nominal_precond', 'main'] / ['check_nominal_precond', 'check_nominal_precond_smc_one_day_late', 'main']; 'main' is used)"
+  },
+  {
+   "check": "e",
+   "item": "mu row of PROVENANCE.md",
+   "passed": true,
+   "detail": "1167 and 142150 in both"
+  },
+  {
+   "check": "f",
+   "item": "T_observer.csv vs facts_block.txt section A",
+   "passed": true,
+   "detail": "96 values compared as printed strings, 0 differ "
+  },
+  {
+   "check": "f",
+   "item": "T_app_observer_noise.csv vs facts_block.txt section B",
+   "passed": true,
+   "detail": "144 values compared, 0 differ "
+  },
+  {
+   "check": "f",
+   "item": "T_app_observer_groups.csv vs facts_block.txt section C",
+   "passed": true,
+   "detail": "24 values compared, 0 differ"
+  },
+  {
+   "check": "f",
+   "item": "T_app_observer_bias.csv",
+   "passed": true,
+   "detail": "15 rows parsed directly from facts_block.txt section C (no recomputation)"
+  },
+  {
+   "check": "f",
+   "item": "facts_block.txt section E (dose schedules) vs metrics_all.csv",
+   "passed": true,
+   "detail": "first day, cumulative dose, phases and longest phase equal for the three controllers"
+  },
+  {
+   "check": "f",
+   "item": "data/observer_facts_block.txt is a byte copy",
+   "passed": true,
+   "detail": ""
+  }
+ ]
+}

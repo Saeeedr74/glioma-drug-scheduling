@@ -1,0 +1,6 @@
+# Python 3.13.0 (the versions with which every script was run and checked)
+numpy==2.2.4
+scipy==1.15.2
+pandas==3.1.1
+matplotlib==3.10.1
+sympy==1.14.0

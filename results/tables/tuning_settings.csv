@@ -1,0 +1,18 @@
+key,value
+A_REF_UNIFIED,7.5
+SEEDS,"(7, 11, 23)"
+DE_STRATEGY,'best1bin'
+DE_POLISH,False
+DE_WORKERS,1
+DE_UPDATING,'immediate'
+MAXITER_PID,249
+MAXITER_SMC,148
+W_PROT,2.0
+W_SW,2.0
+TRACK_FLOOR,0.0001
+PROT_FREE_DAYS,4
+PROT_CYCLE_DAYS,28
+J_FAIL,10000.0
+BUDGET_MIN_PER_CONTROLLER,60.0
+PID_SPACE,"(('PID_M_P', 1.0, 100.0, 'log'), ('PID_M_I', 0.18, 18.0, 'log'), ('PID_M_D', 0.33, 33.0, 'log'), ('PID_YGAIN', 200000.0, 20000000.0, 'log'), ('PID_A_GAIN', 2.0, 15.0, 'log'), ('PID_B_GAIN', 0.0, 1.0, 'lin'))"
+SMC_SPACE,"(('LAMBDA_P', 0.1, 10.0, 'log'), ('LAMBDA_D', 0.1, 10.0, 'log'), ('LAMBDA_I', 1e-06, 0.01, 'log'), ('DELTA_INIT', 0.001, 0.1, 'log'), ('DELTA_FINAL', 1e-09, 0.01, 'log'), ('A_DELTA', 2.0, 15.0, 'log'), ('B_DELTA', 0.0, 1.0, 'lin'))"

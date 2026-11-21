@@ -1,0 +1,31 @@
+{
+ "lam_p": 1.8813613583755686,
+ "lam_d": 9.619198702305367,
+ "lam_i": 2.9470610386036095e-05,
+ "roots": [
+  -9.419467862176004,
+  -0.19971517436108113,
+  -1.566576827949384e-05
+ ],
+ "roots_imag_max": 0.0,
+ "hurwitz": true,
+ "time_constants_days": [
+  0.10616310970341679,
+  5.007130796140806,
+  63833.44769046399
+ ],
+ "L1_gain_0_2000": 0.5471399573507333,
+ "free_response_gain": 0.09766030963926621,
+ "t_of_free_response_peak": 0.41800000000000004,
+ "sup_abs_s": 0.030288579636052266,
+ "day_of_sup_abs_s": 0,
+ "share_days_abs_s_le_delta": 0.869,
+ "de_dt_0": 0.0033812481445512203,
+ "bound_abs_e": 0.016902305911047993,
+ "observed_max_abs_e": 0.005222996107060035,
+ "day_observed_max": 73,
+ "bound_holds": true,
+ "observed_max_abs_e_over_x2pre": 0.016648032394710445,
+ "check_old_params_L1": 0.7490186553684852,
+ "check_old_params_gmax": 0.296295481563866
+}

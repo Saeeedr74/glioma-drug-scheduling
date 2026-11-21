@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the article below."
+title: "Code for: Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model"
+type: software
+license: MIT
+authors:
+  - family-names: Rahimi
+    given-names: Saeed
+    affiliation: "Sharif University of Technology, Tehran, Iran"
+  - family-names: Moradi
+    given-names: Hamed
+    affiliation: "Sharif University of Technology, Tehran, Iran"
+version: "1.0.0"
+date-released: "2026-11-16"
+doi: "[TODO: DOI]"
+preferred-citation:
+  type: article
+  title: "Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model"
+  authors:
+    - family-names: Rahimi
+      given-names: Saeed
+    - family-names: Moradi
+      given-names: Hamed
+  journal: "Computer Methods and Programs in Biomedicine"
+  doi: "[TODO: DOI]"

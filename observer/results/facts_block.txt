@@ -1,0 +1,124 @@
+FACTS BLOCK - state observers for the glioma chemotherapy controllers (mu, PID, SMC)
+Written 2026-11-16 13:35 by make_facts_block.py from the stored results of observer.py
+(no simulation rerun, no setting changed).
+
+ROLES FOR THE PAPER
+  Main observer        : discrete extended Kalman filter (EKF) on [x1, x2].
+  Comparison baseline  : corrected adaptive Luenberger observer, sampled-data form (lsd).
+  Also reported (M1)   : the continuous-time Luenberger form with y held over each day (lzoh),
+                         i.e. the form of the original task text; it shows a sampling-lag bias.
+
+COMMON SETUP (source: observer.py SETTINGS, README.md section 4)
+  y = x2 (x3 excluded: rank of [C; CA; CA^2] at x_pre with y = x2 is 2); x4_hat from the applied dose
+  with nominal zeta = 0.2; nominal model in every observer; x2_hat(0) = y(0);
+  x1_hat(0) = (1 +/- 0.2) x1(0). Measurement modes: M1 daily noise-free; M2 daily, sigma = 0.1;
+  M3 every 7 or 28 days, sigma = 0.1; 20 seeds per noisy scenario.
+  Luenberger: poles p_i = -max(2|Re lambda_i(A)|, 0.01/day), relinearisation trigger
+  0.5% on x2_hat. EKF: Q = diag((q x_hat)^2), q = 0.001/day; R = (sigma x2)^2
+  (M1: sigma_eff = 0.001); P0 = diag((delta x1_hat(0))^2, (sigma y0)^2).
+  Convergence day = first day after which e1 = |x1_hat - x1|/x1 stays below 0.01.
+  EKF 'updates' = Jacobian propagations / measurement updates; Luenberger = triggered relinearisations.
+  Pairs 'a / b' below are delta = +0.2 / -0.2.  n.c. = not converged by day 2000.
+
+A. MAIN NUMBERS - M1 (daily, noise-free), nominal plant  [source: results/summary_by_scenario.csv]
+  [mu]                         EKF (main)              Luenberger lsd (baseline)   Luenberger lzoh (task form)
+    convergence day (e1<1%)      247 / 361               271 / 269                   536 / 507
+    e1 at day 2000               8.34e-08 / 1.54e-07     8.79e-06 / 8.79e-06         4.21e-04 / 4.21e-04
+    RMS e1, days 0..2000         1.65e-02 / 2.28e-02     3.85e-02 / 3.99e-02         3.75e-02 / 4.28e-02
+    RMS e1, days 100..2000       5.03e-03 / 9.03e-03     1.75e-02 / 1.78e-02         1.68e-02 / 2.22e-02
+    e2 at day 2000               9.35e-11 / 1.72e-10     4.32e-06 / 4.32e-06         1.11e-03 / 1.11e-03
+    updates                      2000 / 2000 (daily)     1216 / 1219 relinearisations
+    min rank [C; CA]             2                       2 (rank-deficient updates: 0)
+    max Re eig(A - LC)           -                       -0.0100 /day; max |eig((I-KC)Phi)| = 0.99005
+    observer time constants      -                       day 0: 100.0 and 48.0 d (+delta), 100.0 and 74.8 d (-delta); over all updates 20.9..100.0 d
+  [pid]                         EKF (main)              Luenberger lsd (baseline)   Luenberger lzoh (task form)
+    convergence day (e1<1%)      244 / 358               277 / 269                   246 / 327
+    e1 at day 2000               8.11e-08 / 1.50e-07     1.53e-07 / 1.53e-07         3.25e-06 / 3.25e-06
+    RMS e1, days 0..2000         1.65e-02 / 2.27e-02     3.86e-02 / 4.01e-02         3.74e-02 / 4.20e-02
+    RMS e1, days 100..2000       4.97e-03 / 8.93e-03     1.76e-02 / 1.80e-02         1.61e-02 / 2.08e-02
+    e2 at day 2000               9.09e-11 / 1.67e-10     5.39e-08 / 5.39e-08         7.75e-04 / 7.75e-04
+    updates                      2000 / 2000 (daily)     1129 / 1128 relinearisations
+    min rank [C; CA]             2                       2 (rank-deficient updates: 0)
+    max Re eig(A - LC)           -                       -0.0100 /day; max |eig((I-KC)Phi)| = 0.99005
+    observer time constants      -                       day 0: 100.0 and 48.0 d (+delta), 100.0 and 74.8 d (-delta); over all updates 27.2..100.0 d
+  [smc]                         EKF (main)              Luenberger lsd (baseline)   Luenberger lzoh (task form)
+    convergence day (e1<1%)      244 / 358               274 / 271                   507 / 392
+    e1 at day 2000               8.10e-08 / 1.49e-07     7.51e-06 / 7.51e-06         1.97e-04 / 1.97e-04
+    RMS e1, days 0..2000         1.65e-02 / 2.27e-02     3.86e-02 / 4.00e-02         3.79e-02 / 4.22e-02
+    RMS e1, days 100..2000       4.98e-03 / 8.94e-03     1.76e-02 / 1.79e-02         1.69e-02 / 2.12e-02
+    e2 at day 2000               9.08e-11 / 1.67e-10     5.95e-07 / 5.95e-07         9.12e-04 / 9.12e-04
+    updates                      2000 / 2000 (daily)     1227 / 1229 relinearisations
+    min rank [C; CA]             2                       2 (rank-deficient updates: 0)
+    max Re eig(A - LC)           -                       -0.0100 /day; max |eig((I-KC)Phi)| = 0.99005
+    observer time constants      -                       day 0: 100.0 and 48.0 d (+delta), 100.0 and 74.8 d (-delta); over all updates 23.6..100.0 d
+  At x_pre with x1_hat = x1 (step 2 of observer.py): eig(A) = {-0.008549, +0.003840}/day; the old rule
+  2 eig(A) gives the UNSTABLE pole +0.00768/day; the new rule gives -0.0100 and -0.0171/day (tau 100 and 58.5 d).
+
+B. NOISE AND SPARSE IMAGING - nominal plant, median / worst over 20 seeds, delta = +0.2  [summary_by_scenario.csv]
+  M2:
+    mu  EKF  conv. day   458 / 566   RMS e1 100..2000 1.85e-02 / 3.42e-02  e1(2000) 2.69e-04 / 7.56e-04  not converged 0/20
+    mu  lsd  conv. day  1955 / n.c.  RMS e1 100..2000 4.24e-02 / 6.87e-02  e1(2000) 4.67e-03 / 1.38e-02  not converged 3/20
+    pid EKF  conv. day   449 / 566   RMS e1 100..2000 1.85e-02 / 3.41e-02  e1(2000) 2.69e-04 / 7.56e-04  not converged 0/20
+    pid lsd  conv. day  1946 / 2000  RMS e1 100..2000 3.63e-02 / 5.94e-02  e1(2000) 3.32e-03 / 9.70e-03  not converged 0/20
+    smc EKF  conv. day   449 / 566   RMS e1 100..2000 1.85e-02 / 3.41e-02  e1(2000) 2.69e-04 / 7.56e-04  not converged 0/20
+    smc lsd  conv. day  1911 / n.c.  RMS e1 100..2000 4.17e-02 / 5.80e-02  e1(2000) 4.68e-03 / 1.01e-02  not converged 1/20
+  M3_7:
+    mu  EKF  conv. day   532 / 654   RMS e1 100..2000 2.64e-02 / 3.88e-02  e1(2000) 1.44e-04 / 5.18e-04  not converged 0/20
+    mu  lsd  conv. day  1974 / n.c.  RMS e1 100..2000 8.38e-02 / 1.06e-01  e1(2000) 8.79e-03 / 3.63e-02  not converged 9/20
+    pid EKF  conv. day   532 / 651   RMS e1 100..2000 2.63e-02 / 3.86e-02  e1(2000) 1.44e-04 / 5.18e-04  not converged 0/20
+    pid lsd  conv. day  1984 / n.c.  RMS e1 100..2000 6.33e-02 / 8.14e-02  e1(2000) 8.99e-03 / 2.41e-02  not converged 8/20
+    smc EKF  conv. day   532 / 651   RMS e1 100..2000 2.63e-02 / 3.86e-02  e1(2000) 1.44e-04 / 5.18e-04  not converged 0/20
+    smc lsd  conv. day  1978 / n.c.  RMS e1 100..2000 7.75e-02 / 9.84e-02  e1(2000) 9.30e-03 / 3.03e-02  not converged 10/20
+  M3_28:
+    mu  EKF  conv. day   560 / 679   RMS e1 100..2000 2.86e-02 / 4.82e-02  e1(2000) 1.26e-04 / 3.64e-04  not converged 0/20
+    mu  lsd  conv. day  1988 / n.c.  RMS e1 100..2000 1.20e-01 / 1.65e-01  e1(2000) 1.88e-02 / 3.84e-02  not converged 14/20
+    pid EKF  conv. day   560 / 676   RMS e1 100..2000 2.84e-02 / 4.77e-02  e1(2000) 1.26e-04 / 3.64e-04  not converged 0/20
+    pid lsd  conv. day  1988 / n.c.  RMS e1 100..2000 9.94e-02 / 1.63e-01  e1(2000) 1.66e-02 / 4.17e-02  not converged 13/20
+    smc EKF  conv. day   560 / 675   RMS e1 100..2000 2.84e-02 / 4.77e-02  e1(2000) 1.26e-04 / 3.64e-04  not converged 0/20
+    smc lsd  conv. day  1988 / n.c.  RMS e1 100..2000 1.20e-01 / 1.63e-01  e1(2000) 1.60e-02 / 3.84e-02  not converged 14/20
+
+C. FACT 1 - x1 IS NOT IDENTIFIABLE FROM y = x2 UNDER GROWTH-RATE MISMATCH (structural, not a code error)
+  Mechanism: x1 enters dx2/dt only through -b2 x1 x2, so a relative growth-rate error eps of the x2
+  equation is indistinguishable from an x1 offset of about -eps/b2 (b2 = 0.0018/day).
+  eps(t) = [f2_plant(x, x4) - f2_nominal(x, x4_hat)]/x2 on the stored plant trajectory; medians over days 500..1500;
+  observed = median(x1_hat - x1), EKF, M1.  [source: results/timeseries/truth_<ctrl>.csv.gz,
+  est_ekf_<ctrl>_M1.csv.gz; computed by make_facts_block.py]
+    ctrl  group   eps [1/day]   predicted -eps/b2   observed (+delta / -delta)
+    mu    G1     +2.39e-03     -1.327              -1.559 / -1.971
+    mu    G2     +8.74e-04     -0.485              -0.032 / -0.031
+    mu    G3     +2.21e-03     -1.228              -1.765 / -1.797
+    mu    G4     +2.43e-03     -1.348              -1.956 / -2.025
+    mu    G5     +2.80e-03     -1.555              -2.052 / -2.051
+    pid   G1     +2.39e-03     -1.328              -1.959 / -1.959
+    pid   G2     +8.75e-04     -0.486              -0.032 / -0.031
+    pid   G3     +2.15e-03     -1.195              -1.678 / -1.751
+    pid   G4     +2.36e-03     -1.309              -2.005 / -2.023
+    pid   G5     +2.66e-03     -1.480              -2.021 / -2.021
+    smc   G1     +2.39e-03     -1.328              -1.959 / -1.959
+    smc   G2     +8.75e-04     -0.486              -0.032 / -0.031
+    smc   G3     +2.24e-03     -1.247              -1.890 / -1.906
+    smc   G4     +2.49e-03     -1.382              -1.984 / -1.984
+    smc   G5     +2.82e-03     -1.567              -2.037 / -2.037
+  Groups G1, G3, G4, G5, all controllers: predicted -1.57 to -1.19, observed -2.05 to -1.56 (same sign, same order).
+  G2 changes b2 itself (the coupling), so the simple mapping does not apply; its observed bias is small.
+  Resulting x1 and x2 errors, M1, five groups  [source: results/metrics_all.csv]:
+    ekf   e1(2000) G1/G3/G4/G5 0.97..2.04; G2 0.017..0.017; e2(2000) max 0.08%, RMS e2 max 0.08%; diverged 0/30
+    lsd   e1(2000) G1/G3/G4/G5 1.03..2.55; G2 0.145..0.177; e2(2000) max 3.82%, RMS e2 max 5.43%; diverged 8/30
+    lzoh  e1(2000) G1/G3/G4/G5 0.87..2.06; G2 0.144..0.177; e2(2000) max 3.83%, RMS e2 max 3.89%; diverged 9/30
+  -> x2 stays well estimated while x1 does not: worst e2(2000) over the non-diverged M1 group runs is 0.08% (EKF),
+     3.8% (lsd) and 3.8% (lzoh); the diverged runs are all Luenberger runs (counted above).
+
+D. FACT 2 - EKF CONSISTENCY
+  mu   nominal, M1: sqrt(P11)/x1 at day 2000 = 0.85% / 0.85%, true e1 = 8.3e-08 / 1.5e-07  -> conservative (floor set by Q)
+  pid  nominal, M1: sqrt(P11)/x1 at day 2000 = 0.85% / 0.85%, true e1 = 8.1e-08 / 1.5e-07  -> conservative (floor set by Q)
+  smc  nominal, M1: sqrt(P11)/x1 at day 2000 = 0.85% / 0.85%, true e1 = 8.1e-08 / 1.5e-07  -> conservative (floor set by Q)
+  Share of days 100..2000 with |x1_hat - x1| <= 2 sqrt(P11), median over all EKF runs per plant
+  (all controllers, modes, seeds, both delta)  [source: results/metrics_all.csv, ekf_frac_in_2sd_100_2000]:
+    nominal 100.0%, G1 17.7%, G2 75.4%, G3 12.2%, G4 12.4%, G5 12.3%
+  -> nominal: consistent; growth-rate mismatch groups G1/G3/G4/G5: 12-18% inside 2 sigma (overconfident); G2: 75%.
+  Late in treatment observability fades: b2 x2 falls from 5.6e-4/day at day 0 to 2e-9 (mu) .. 3e-8 (PID)/day
+  at day 2000, cond([C; CA]) rises from 1.8e3 to 4e7 (PID) .. 5e8 (mu)  [figure fig_ekf_sd_observability].
+
+E. DOSE SCHEDULES (single convention, doses on days 0..1999)  [source: schedules/PROVENANCE.md]
+  first day x2 < 1e-4: mu 1167, PID 1166, SMC 1165; cumulative dose [mg m^-2]: 142150, 131350, 140050;
+  high-dose phases: 65, 71, 71; longest: 5, 4, 4 days. All checks a-g passed.

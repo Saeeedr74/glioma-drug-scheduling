@@ -1,0 +1,19 @@
+\begin{table*}[htbp]
+\centering
+\caption{Open-loop references on the nominal model: continuous maximum dose and the standard 5/28 protocol (5 days of treatment, 23 days without drug) at 200 and 400~$\mathrm{mg\,m^{-2}\,day^{-1}}$, next to the discrete SMC.}
+\label{tab:open_loop_protocols}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Metric & Maximum dose & 5/28, dose 200 & 5/28, dose 400 & SMC (discrete) \\
+\midrule
+First day with $x_2<10^{-4}$ (days) & 236 & not reached & 1272 & 1165 \\
+Day from which $x_2<10^{-4}$ holds to $T$ (days) & 236 & not reached & 1293 & 1165 \\
+Glial recovery, $x_1\ge 0.99$ to $T$ (days) & 666 & not reached & 1056 & 1042 \\
+$x_2(T)$ & $0$ & $5.314{\times}10^{-1}$ & $8.248{\times}10^{-7}$ & $2.050{\times}10^{-6}$ \\
+$x_3(T)$ & 0.4751 & 0.1341 & 0.4234 & 0.3979 \\
+Cumulative dose ($\mathrm{mg\,m^{-2}}$) & 59800 & 72000 & 144000 & 140050 \\
+Longest phase at the highest dose (days) & 299 & 5 & 5 & 4 \\
+\bottomrule
+\end{tabular}
+\end{table*}

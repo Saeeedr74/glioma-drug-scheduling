@@ -1,0 +1,29 @@
+\begin{table}[htbp]
+\centering
+\caption{Offset of the EKF estimate of $x_1$ under plant mismatch: relative growth-rate error $\varepsilon$ of the $x_2$ equation (median over days 500--1500), the offset $-\varepsilon/\beta_2$ it predicts, and the observed median of $\hat{x}_1-x_1$ for initial errors of $+20\%$ / $-20\%$.}
+\label{tab:observer_bias}
+\small
+\begin{tabular}{llccc}
+\toprule
+Schedule & Group & $\varepsilon$ (day$^{-1}$) & Predicted offset & Observed offset \\
+\midrule
+$\mu$-synthesis & G1 & $2.39{\times}10^{-3}$ & $-1.327$ & $-1.559$ / $-1.971$ \\
+ & G2 & $8.74{\times}10^{-4}$ & $-0.485$ & $-0.032$ / $-0.031$ \\
+ & G3 & $2.21{\times}10^{-3}$ & $-1.228$ & $-1.765$ / $-1.797$ \\
+ & G4 & $2.43{\times}10^{-3}$ & $-1.348$ & $-1.956$ / $-2.025$ \\
+ & G5 & $2.80{\times}10^{-3}$ & $-1.555$ & $-2.052$ / $-2.051$ \\
+\addlinespace
+PID & G1 & $2.39{\times}10^{-3}$ & $-1.328$ & $-1.959$ / $-1.959$ \\
+ & G2 & $8.75{\times}10^{-4}$ & $-0.486$ & $-0.032$ / $-0.031$ \\
+ & G3 & $2.15{\times}10^{-3}$ & $-1.195$ & $-1.678$ / $-1.751$ \\
+ & G4 & $2.36{\times}10^{-3}$ & $-1.309$ & $-2.005$ / $-2.023$ \\
+ & G5 & $2.66{\times}10^{-3}$ & $-1.480$ & $-2.021$ / $-2.021$ \\
+\addlinespace
+SMC & G1 & $2.39{\times}10^{-3}$ & $-1.328$ & $-1.959$ / $-1.959$ \\
+ & G2 & $8.75{\times}10^{-4}$ & $-0.486$ & $-0.032$ / $-0.031$ \\
+ & G3 & $2.24{\times}10^{-3}$ & $-1.247$ & $-1.890$ / $-1.906$ \\
+ & G4 & $2.49{\times}10^{-3}$ & $-1.382$ & $-1.984$ / $-1.984$ \\
+ & G5 & $2.82{\times}10^{-3}$ & $-1.567$ & $-2.037$ / $-2.037$ \\
+\bottomrule
+\end{tabular}
+\end{table}

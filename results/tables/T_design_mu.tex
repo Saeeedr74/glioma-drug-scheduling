@@ -1,0 +1,41 @@
+\begin{table}[htbp]
+\centering
+\caption{$\mu$-synthesis design parameters used in the simulations (design D1). $W_p(s)=c_p\,(s/M+\omega_B)/(s+\omega_B\varepsilon_p)$, $W_i(s)=k\,(s/\omega_z+1)/(s/\omega_p+1)$. Constraints of the weight search: $\omega_p\ge4\omega_z$ and $c_p\le1.2M$.}
+\label{tab:mu-params}
+\small
+\begin{tabular}{lcc}
+\toprule
+Item & Value & Search range (log scale) \\
+\midrule
+$W_p$: $M$ & $1.83935$ & $[1.05,\ 8]$ \\
+$W_p$: $\varepsilon_p$ (code: \texttt{A}) & $0.00704063$ & $[5{\times}10^{-5},\ 0.1]$ \\
+$W_p$: $\omega_B$ (day$^{-1}$) & $0.311074$ & $[0.001,\ 0.6]$ \\
+$W_p$: gain $c_p$ & $0.594511$ & $[0.3,\ 5]$ \\
+$W_i$: $k$ & $0.128580$ & $[0.02,\ 1]$ \\
+$W_i$: $\omega_z$ (day$^{-1}$) & $0.434664$ & $[0.01,\ 0.5]$ \\
+$W_i$: $\omega_p$ (day$^{-1}$) & $6.74273$ & $[0.5,\ 200]$ \\
+\midrule
+Reference shaping $a$ ($b=0$) & $7.5$ & --- \\
+Maintenance dose $u_{\min}$ ($\mathrm{mg\,m^{-2}\,day^{-1}}$) & $50$ & --- \\
+High dose $u_{\max}$ ($\mathrm{mg\,m^{-2}\,day^{-1}}$) & $200$ & --- \\
+Dose threshold on the clipped command ($\mathrm{mg\,m^{-2}\,day^{-1}}$) & $125$ & --- \\
+Redesign threshold on the drift of $x_2$ & $0.1$ & --- \\
+Minimum gap between redesigns (days) & $5$ & --- \\
+No redesign once $x_2$ is below & $0.0001$ & --- \\
+D--K iterations, at most & $8$ & --- \\
+Design rejected if $\mu$ peak exceeds & $10$ & --- \\
+Anti-windup gain & $1$ & --- \\
+Floor of the linearization value of $x_2$ in the redesign test & $0.001$ & --- \\
+Floor of the output scaling $x_{2,\mathrm{op}}$ & $10^{-6}$ & --- \\
+\midrule
+$\mu$ peak, initial design & $0.4655$ & --- \\
+Largest $\mu$ peak over the redesigns & $0.4656$ & --- \\
+Robust stability margin, lower bound & $6.386$ & --- \\
+Robust stability margin, upper bound & $6.399$ & --- \\
+Input uncertainty covered by $W_i$, low frequency (\%) & $12.9$ & --- \\
+Input uncertainty covered by $W_i$, high frequency (\%) & $199.5$ & --- \\
+Redesigns in the nominal discrete run & $60$ & --- \\
+Failed redesigns & $0$ & --- \\
+\bottomrule
+\end{tabular}
+\end{table}

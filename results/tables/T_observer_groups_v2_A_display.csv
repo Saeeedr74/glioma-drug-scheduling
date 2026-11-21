@@ -1,0 +1,13 @@
+plant,observer,e1(2000),e2(2000),error of x1_hat at day 2000 (%),diverged (first day with |x1_hat|>1e3)
+Nominal,EKF,1.54x10^{-7} / 8.34x10^{-8},1.72x10^{-10} / 9.35x10^{-11},-1.54x10^{-5} / 8.34x10^{-6},no / no
+Nominal,Luenberger,8.79x10^{-6} / 8.79x10^{-6},4.32x10^{-6} / 4.32x10^{-6},-8.79x10^{-4} / -8.79x10^{-4},no / no
+G1,EKF,2.03 / 1.54,7.54x10^{-4} / 2.16x10^{-4},-203.16 / -153.68,no / no
+G1,Luenberger,2.55 / div.,0.02 / div.,-254.71 / div.,no / day 393
+G2,EKF,0.02 / 0.02,5.37x10^{-4} / 5.37x10^{-4},-1.69 / -1.69,no / no
+G2,Luenberger,0.18 / 0.18,0.03 / 0.03,-17.71 / -17.71,no / no
+G3,EKF,1.03 / 1.03,5.71x10^{-5} / 5.71x10^{-5},-103.24 / -103.24,no / no
+G3,Luenberger,div. / div.,div. / div.,div. / div.,day 1435 / day 1435
+G4,EKF,1.19 / 1.19,1.08x10^{-4} / 1.08x10^{-4},-118.83 / -118.83,no / no
+G4,Luenberger,div. / div.,div. / div.,div. / div.,day 328 / day 243
+G5,EKF,1.19 / 1.19,1.10x10^{-4} / 1.11x10^{-4},-119.09 / -119.09,no / no
+G5,Luenberger,1.40 / 1.40,0.01 / 0.01,-140.49 / -140.49,no / no

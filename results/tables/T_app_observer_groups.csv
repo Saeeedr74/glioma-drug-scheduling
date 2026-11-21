@@ -1,0 +1,4 @@
+observer,e1_final_G1345_min,e1_final_G1345_max,e1_final_G2_min,e1_final_G2_max,e2_final_max_percent,rms_e2_max_percent,n_diverged,n_runs
+ekf,0.97,2.04,0.017,0.017,0.08,0.08,0,30
+lsd,1.03,2.55,0.145,0.177,3.82,5.43,8,30
+lzoh,0.87,2.06,0.144,0.177,3.83,3.89,9,30

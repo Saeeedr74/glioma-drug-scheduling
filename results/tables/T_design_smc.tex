@@ -1,0 +1,25 @@
+\begin{table}[htbp]
+\centering
+\caption{SMC design parameters used in the simulations. Tuned values are from the differential-evolution search. Constraints of the search: $\lambda_d\lambda_p>\lambda_i$ and $\delta_{\mathrm{final}}\le\delta_{\mathrm{init}}$.}
+\label{tab:smc-params}
+\small
+\begin{tabular}{lcc}
+\toprule
+Item & Value & Search range (scale) \\
+\midrule
+Reference shaping $a$ & $7.5$ & --- \\
+Reference shaping $b$ & $0$ & --- \\
+Maintenance dose $u_{\min}$ ($\mathrm{mg\,m^{-2}\,day^{-1}}$) & $50$ & --- \\
+High dose $u_{\max}$ ($\mathrm{mg\,m^{-2}\,day^{-1}}$) & $200$ & --- \\
+Sliding-surface gain $\lambda_p$ (coefficient of $e$) & $1.8814$ & $[0.1,\ 10]$ (log) \\
+Sliding-surface gain $\lambda_d$ (coefficient of $\dot e$) & $9.6192$ & $[0.1,\ 10]$ (log) \\
+Sliding-surface gain $\lambda_i$ (coefficient of $\int e\,dt$) & $2.9471{\times}10^{-5}$ & $[10^{-6},\ 0.01]$ (log) \\
+Initial hysteresis half-width $\delta_{\mathrm{init}}$ & $0.013665$ & $[0.001,\ 0.1]$ (log) \\
+Final hysteresis half-width $\delta_{\mathrm{final}}$ & $2.6767{\times}10^{-7}$ & $[10^{-9},\ 0.01]$ (log) \\
+Hysteresis sharpness $a_\delta$ & $7.8241$ & $[2,\ 15]$ (log) \\
+Hysteresis offset $b_\delta$ & $0.10365$ & $[0,\ 1]$ (lin) \\
+Smoothing gain $\gamma_1$ (continuous SMC only, fixed) & $1$ & --- \\
+Smoothing gain $\gamma_2$ (continuous SMC only, fixed) & $1$ & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
