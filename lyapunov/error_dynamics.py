@@ -7,8 +7,7 @@ so  e = z'  is the output of  G(sigma) = sigma / (sigma^3 + lam_d sigma^2 + lam_
 driven by s, plus the free response from z''(0) = de/dt(0) (z(0) = 0, e(0) = 0), which is
 g(t) * de/dt(0) with g the impulse response of G. Hence, on 0 <= t <= T,
     |e(t)| <= L1 * sup|s| + g_max * |de/dt(0)|,   L1 = int_0^T |g|,  g_max = max_[0,T] |g|.
-(Definitions checked against the two numbers of NOTES.md for the OLD parameters: 0.749 and 0.296.)
-sup|s|, de/dt(0) and the observed error come from the final SMC run (data/, made by unify.py).
+sup|s|, de/dt(0) and the observed error come from the final SMC run (results/figure_data/).
 """
 import json
 import os

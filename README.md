@@ -1,39 +1,79 @@
 # Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model
 
-Code and data for the article by **Saeed Rahimi** and **Hamed Moradi** (corresponding author),
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)
+![MATLAB R2023a](https://img.shields.io/badge/MATLAB-R2023a-orange.svg)
+![Status: submitted to CMPB](https://img.shields.io/badge/status-submitted%20to%20CMPB-lightgrey.svg)
+
+Code and stored results for the article by **Saeed Rahimi** and **Hamed Moradi** (corresponding author),
 Sharif University of Technology, Tehran, Iran. Submitted to *Computer Methods and Programs in Biomedicine*.
 
-## Summary
-The normalized four-state glioma model of Iarosz et al. (glial cells x1, glioma cells x2, neurons x3,
-drug concentration x4) is simulated with RK4 and a step of 1 day. After 600 days without treatment, three
-feedback controllers schedule the daily dose u in {50, 200} mg m^-2 day^-1 (maintenance phase and high-dose
-phase) so that x2 follows a smooth reference over 2000 days: a gain-scheduled PID, a sliding-mode
-controller (SMC) and a mu-synthesis controller redesigned along the trajectory. The repository also holds
-the tuning of the PID and SMC parameters (differential evolution), the uncertainty study (five parameter
-groups G1..G5), the state observers (extended Kalman filter and an adaptive Luenberger observer), the
-numerical checks of the Lyapunov analysis (nominal model) and the script that draws every figure.
+A four-state model of glioma growth (glial cells x1, glioma cells x2, neurons x3, drug concentration x4) is
+used to design chemotherapy schedules by feedback control. Three controllers (a gain-scheduled PID, a
+sliding-mode controller and a mu-synthesis controller) choose each day a dose of 50 or 200 mg m^-2 so that
+the tumor population follows a smooth reference over 2000 days. The schedules are compared with a
+maximum-dose baseline and the standard 5/28 protocol, tested under parameter uncertainty and with state
+observers, and backed by a Lyapunov analysis. Every result in the paper can be regenerated from the scripts
+here, and the stored outputs are included so that a new run can be checked against them.
+
+![SMC schedule compared with the 5/28 protocol](assets/protocol_comparison.png)
+
+*Discrete SMC schedule versus the 5/28 protocol at 200 and 400 mg m^-2 day^-1: (a) glioma cells, (b) glial
+cells, (c) neurons, (d) cumulative dose (from `figures/main/fig_protocol_comparison_4panel_v2.pdf`).*
+
+## Results at a glance
+
+Nominal model, 2000 days of treatment (day 0 = start of treatment), values as printed in the paper.
+
+| schedule | first day with x2 < 1e-4 | x2(T) | x3(T) | cumulative dose (mg m^-2) | glial recovery to 99% (day) |
+|---|---|---|---|---|---|
+| maximum-dose baseline | 236 | 0 | 0.48 | 47200 | 664 |
+| PID | 1166 | 1.58e-5 | 0.40 | 131350 | 1042 |
+| SMC | 1165 | 2.05e-6 | 0.40 | 140050 | 1042 |
+| mu-synthesis | 1167 | 1.25e-6 | 0.39 | 142150 | 1046 |
+| 5/28 protocol, 200 mg m^-2 | not reached | 0.53 | 0.13 | 72000 | – |
+| 5/28 protocol, 400 mg m^-2 | 1272 | 8.25e-7 | 0.42 | 144000 | – |
+
+Sources: `results/tables/paper/controller_summary_rows.tex` (baseline, PID, SMC, mu-synthesis) and
+`results/tables/T_protocol_comparison.tex` (5/28 protocol; glial recovery is not stored for it).
+The baseline stops the drug on the first day with x2 < 1e-4 (see [Notes](#notes)).
+
+## Method in one picture
+
+```mermaid
+flowchart LR
+    A["Four-state glioma model<br/>(RK4, 1-day step)"] --> B["Pre-conditioning<br/>600 days untreated"]
+    B --> C["Controllers<br/>PID · SMC · mu-synthesis"]
+    C --> D["Uncertainty<br/>groups G1–G5, replay test,<br/>Monte Carlo (mu-synthesis)"]
+    C --> E["Observers<br/>EKF · adaptive Luenberger"]
+    C --> F["Lyapunov checks<br/>symbolic, grid, exact"]
+    D --> G["Figures and tables"]
+    E --> G
+    F --> G
+```
+
+## Contents
+
+- [Requirements](#requirements)
+- [Reproduce](#reproduce)
+- [Repository layout](#repository-layout)
+- [Figures and tables](#figures-and-tables)
+- [Notes](#notes)
+- [Related work](#related-work)
+- [How to cite](#how-to-cite)
+- [License and contact](#license-and-contact)
 
 ## Requirements
-- Python 3.13 with the pinned packages in `requirements.txt` (`pip install -r requirements.txt`).
+- Python 3.13 with the pinned packages in `requirements.txt`:
+
+      pip install -r requirements.txt
+
 - MATLAB R2023a with the Robust Control, Control System and Statistics and Machine Learning toolboxes,
-  for the mu-synthesis part only (see `MATLAB.md`).
+  for the mu-synthesis part only (see [MATLAB.md](MATLAB.md)).
 
-## Layout
-| folder | content |
-|---|---|
-| `model/` | pre-conditioning, maximum-dose baseline, `glioma_paper/` (model, replay of a dose schedule, the metric function used for every table) |
-| `controllers/pid/`, `controllers/smc/` | nominal discrete PID; discrete SMC, continuous SMC and the standard 5/28 protocol |
-| `controllers/mu_synthesis/` | MATLAB design and weight search, results file, caches, CSV exports (`MATLAB.md`) |
-| `tuning/` | differential-evolution tuning of PID and SMC |
-| `uncertainty/` | protocol E1: nominal PID and SMC schedules replayed on G1..G5 (mu: `mu_py_timeseries.csv`, mode E1_replay) |
-| `observer/` | observer study (EKF, Luenberger) and the script that summarizes its results |
-| `lyapunov/` | symbolic and grid check of the Lyapunov certificate, the same sign check in exact rational arithmetic, dW/dt along the simulated runs, tracking-error bounds |
-| `figures/` | `make_figures.py` (pre-conditioning, PID gains, sliding band, schedules, states, drug concentration, appendix figures) and `make_figures_v2.py` (baseline, 5/28 comparison, replay test, observers, Lyapunov function; written to `figures/main/*_v2.pdf`) |
-| `tables/` | scripts that write the rows of the tables of the paper to `results/tables/paper/` (two-decimal formatting in `tables/fmt.py`) |
-| `results/` | `tables/` (CSV and LaTeX of every table), `figure_data/` (the data behind every figure) |
-
-## How to run (from the repository root)
-Measured on a Windows 11 laptop (Python 3.13.0) in one verification run; times are wall-clock.
+## Reproduce
+Run from the repository root. Measured on a Windows 11 laptop (Python 3.13.0) in one verification run;
+times are wall-clock.
 
 | step | command | time |
 |---|---|---|
@@ -55,7 +95,7 @@ Measured on a Windows 11 laptop (Python 3.13.0) in one verification run; times a
 | baseline, 5/28, replay, observer and Lyapunov figures | `python figures/make_figures_v2.py` | 30 s |
 | tables of the paper | `python tables/build_protocol_table.py`, `python tables/build_lyapunov_groups_v2.py`, `python tables/make_table_controller_summary.py`, `python tables/make_tables_observer.py`, `python tables/make_tables_mu_tests.py` | a few seconds |
 | tuning (not needed to reproduce the results) | `python tuning/tune_pid_smc.py` | 161 min (authors' run) |
-| mu-synthesis (MATLAB) | see `MATLAB.md` | 309.5 min for the full search (authors' run); CSV export 125 s |
+| mu-synthesis (MATLAB) | see [MATLAB.md](MATLAB.md) | 309.5 min for the full search (authors' run); CSV export 125 s |
 
 The scripts write their CSV files to `results/runs/` and their own diagnostic plots to
 `results/diagnostic_plots/`; the figures of the paper come only from `figures/make_figures.py`, which reads
@@ -68,6 +108,22 @@ Conventions: day 0 is the start of treatment (simulation day 600). Threshold for
 = sum of the daily doses on days 0..1999. The maximum-dose baseline gives u = 200 until the first day with
 x2 < 1e-4 (day 236); from that day on x2 := 0 and u = 0. The continuous SMC, which is not used in the paper,
 stops at x2 <= 1e-5 (a stopping criterion of the code, then x2 := 0 and u = 0).
+
+## Repository layout
+| folder | content |
+|---|---|
+| `model/` | pre-conditioning, maximum-dose baseline, `glioma_paper/` (model, replay of a dose schedule, the metric function used for every table) |
+| `controllers/pid/`, `controllers/smc/` | nominal discrete PID; discrete SMC, continuous SMC and the standard 5/28 protocol |
+| `controllers/mu_synthesis/` | MATLAB design and weight search, results file, caches, CSV exports ([MATLAB.md](MATLAB.md)) |
+| `tuning/` | differential-evolution tuning of PID and SMC |
+| `uncertainty/` | protocol E1: nominal PID and SMC schedules replayed on G1..G5 (mu: `mu_py_timeseries.csv`, mode E1_replay) |
+| `observer/` | observer study (EKF, Luenberger) and the script that summarizes its results |
+| `lyapunov/` | symbolic and grid check of the Lyapunov certificate, the same sign check in exact rational arithmetic, dW/dt along the simulated runs, tracking-error bounds |
+| `figures/` | `make_figures.py` (pre-conditioning, PID gains, sliding band, schedules, states, drug concentration, appendix figures) and `make_figures_v2.py` (baseline, 5/28 comparison, replay test, observers, Lyapunov function; written to `figures/main/*_v2.pdf`) |
+| `tables/` | scripts that write the rows of the tables of the paper to `results/tables/paper/` (two-decimal formatting in `tables/fmt.py`) |
+| `results/` | `tables/` (CSV and LaTeX of every table), `figure_data/` (the data behind every figure) |
+| `data/` | consolidated outputs of the runs: `metrics_all.csv` (read by `tables/build_protocol_table.py`, `tables/make_table_controller_summary.py` and `tables/extract_numbers.py`), the MATLAB metric exports, the observer summaries and cross-check files; the remaining files are uncompressed copies of `results/figure_data/` |
+| `assets/` | the PNG shown at the top of this README |
 
 ## Figures and tables
 | item | script | data |
@@ -96,7 +152,9 @@ stops at x2 <= 1e-5 (a stopping criterion of the code, then x2 := 0 and u = 0).
 `results/figure_data/` was assembled from the outputs of the scripts above (long format, one file per
 figure family); the larger files are stored gzipped and are read as they are.
 
-## Notes on the stored results
+## Notes
+
+### Stored results
 - Baseline: `model/baseline_max_dose.py` stops the drug on the first day with x2 < 1e-4, the suppression
   threshold of the paper. The run stops on day 236, with a cumulative dose of 47200 mg m^-2, x3(T) = 0.476 and
   glial recovery on day 664 (`results/tables/baseline_metrics_v2.json`, written by `model/baseline_metrics.py`).
@@ -108,13 +166,32 @@ figure family); the larger files are stored gzipped and are read as they are.
 - A new run of `controllers/smc/smc_simulation.py` and of the three scripts in `lyapunov/` reproduces the stored
   outputs to 1e-10 (relative).
 
-## License and citation
-MIT License (`LICENSE`). Please cite the article (`CITATION.cff`).
-
-## Scripts and results not used in the paper
+### Scripts and results not used in the paper
 - The continuous SMC in `controllers/smc/smc_simulation.py` (`nominal_continuous.csv`, `fig_continuous`).
 - The closed-loop runs of the discrete SMC on the perturbed plants G1 to G5 in `lyapunov/verify_proof_plots.py`
   (protocol `closed_loop` in `lyapunov_wdot_summary.csv`). They were made only to evaluate the Lyapunov function;
   their dose and phase metrics were not computed. In the paper, PID and SMC are evaluated on the perturbed
   plants by the replay test only.
 - The appendix figures of `figures/make_figures.py` (`fig_app_*`).
+
+## Related work
+[glioma-neural-surrogate](https://github.com/Saeeedr74/glioma-neural-surrogate): LSTM and Transformer
+surrogates of the same glioma model.
+
+## How to cite
+Please cite the article (see also [CITATION.cff](CITATION.cff)):
+
+```bibtex
+@article{rahimi_moradi_glioma_scheduling,
+  author  = {Rahimi, Saeed and Moradi, Hamed},
+  title   = {Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model},
+  journal = {Computer Methods and Programs in Biomedicine},
+  note    = {Submitted},
+  doi     = {TODO}
+}
+```
+
+## License and contact
+MIT License ([LICENSE](LICENSE)).
+
+Contact: saeed.rahimi74@sharif.edu

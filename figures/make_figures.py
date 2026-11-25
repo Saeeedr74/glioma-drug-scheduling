@@ -1,4 +1,4 @@
-"""Item 1.7: all print figures of the paper. Reads only data/ (relative to this file, or --data DIR).
+"""All print figures of the paper. Reads only results/figure_data/ (relative to this file, or --data DIR).
 Writes vector PDF + 600 dpi PNG to figures/main and figures/appendix, a legend-overlap check
 (figures/figure_checks.json) and, with --preview DIR, low-resolution PNGs for a visual check.
 Usage: python make_figures.py [--data DIR] [--out DIR] [--preview DIR]"""
