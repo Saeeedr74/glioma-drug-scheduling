@@ -25,18 +25,30 @@ cells, (c) neurons, (d) cumulative dose (from `figures/main/fig_protocol_compari
 
 Nominal model, 2000 days of treatment (day 0 = start of treatment), values as printed in the paper.
 
-| schedule | first day with x2 < 1e-4 | x2(T) | x3(T) | cumulative dose (mg m^-2) | glial recovery to 99% (day) |
-|---|---|---|---|---|---|
-| maximum-dose baseline | 236 | 0 | 0.48 | 47200 | 664 |
-| PID | 1166 | 1.58e-5 | 0.40 | 131350 | 1042 |
-| SMC | 1165 | 2.05e-6 | 0.40 | 140050 | 1042 |
-| mu-synthesis | 1167 | 1.25e-6 | 0.39 | 142150 | 1046 |
-| 5/28 protocol, 200 mg m^-2 | not reached | 0.53 | 0.13 | 72000 | – |
-| 5/28 protocol, 400 mg m^-2 | 1272 | 8.25e-7 | 0.42 | 144000 | – |
+**How to read this table.** The maximum-dose baseline is a reference bound, not a treatment option. It
+gives 200 mg m^-2 every day for 236 days in a row, which breaks the dosing rule that the controllers obey
+(each day either 50 or 200 mg m^-2, and no high-dose phase longer than 5 days). Once x2 < 1e-4 it stops the
+drug and sets the tumor to zero by assumption, so its x2(T) = 0 follows from this rule. Its early
+suppression, small cumulative dose and high x3(T) therefore mark the best values this model allows, and the
+controllers are measured against them. The controllers keep to the admissible dosing, reach x2 < 1e-4
+within two days of each other, and follow a planned reference trajectory: the suppression day is set by
+that reference, not by a dose limit. No controller is best on every metric: PID uses the least drug, SMC
+tracks the reference most closely and mu-synthesis leaves the smallest final tumor. The standard 5/28
+schedule does not control the tumor at 200 mg m^-2 in this model; at 400 mg m^-2, above the admissible
+range, it does.
+
+| schedule | first day with x2 < 1e-4 | x2(T) | x3(T) | cumulative dose (mg m^-2) | glial recovery to 99% (day) | longest high-dose phase (days) |
+|---|---|---|---|---|---|---|
+| maximum-dose baseline (bound, breaks the dosing rule) | 236 | 0 | 0.48 | 47200 | 664 | 236 |
+| PID | 1166 | 1.58e-5 | 0.40 | 131350 | 1042 | 4 |
+| SMC | 1165 | 2.05e-6 | 0.40 | 140050 | 1042 | 4 |
+| mu-synthesis | 1167 | 1.25e-6 | 0.39 | 142150 | 1046 | 5 |
+| 5/28 protocol, 200 mg m^-2 | not reached | 0.53 | 0.13 | 72000 | – | – |
+| 5/28 protocol, 400 mg m^-2 (above the admissible range) | 1272 | 8.25e-7 | 0.42 | 144000 | – | – |
 
 Sources: `results/tables/paper/controller_summary_rows.tex` (baseline, PID, SMC, mu-synthesis) and
-`results/tables/T_protocol_comparison.tex` (5/28 protocol; glial recovery is not stored for it).
-The baseline stops the drug on the first day with x2 < 1e-4 (see [Notes](#notes)).
+`results/tables/T_protocol_comparison.tex` (5/28 protocol; glial recovery and phase length are not stored
+for it). Details of the baseline rule are in [Notes](#notes).
 
 ## Method in one picture
 
