@@ -5,7 +5,7 @@ Protocol E1: the nominal PID schedule replayed on the five parameter groups G1..
 Run:  python uncertainty/pid_uncertainty.py
 
 Part of the code for: S. Rahimi, H. Moradi, "Robust drug scheduling for glioma chemotherapy based on a
-multivariable dynamic model" (Sharif University of Technology). MIT License, see LICENSE.
+multivariable dynamic model and state estimation via an extended Kalman filter" (Sharif University of Technology). MIT License, see LICENSE.
 """
 import os                  # needed by the parameter block (all imports follow below)
 import numpy as np

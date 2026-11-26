@@ -18,7 +18,7 @@ Usage:  python observer/observer.py            (all steps, about 5 min on 11 wor
         python observer/observer.py --step1    (step 1 only)
 
 Part of the code for: S. Rahimi, H. Moradi, "Robust drug scheduling for glioma chemotherapy based on a
-multivariable dynamic model" (Sharif University of Technology). MIT License, see LICENSE.
+multivariable dynamic model and state estimation via an extended Kalman filter" (Sharif University of Technology). MIT License, see LICENSE.
 """
 import gzip
 import hashlib

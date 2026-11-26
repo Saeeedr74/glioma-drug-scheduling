@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite the article below."
-title: "Code for: Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model"
+title: "Code for: Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model and state estimation via an extended Kalman filter"
 type: software
 license: MIT
 authors:
@@ -15,7 +15,7 @@ date-released: "2026-11-16"
 doi: "[TODO: DOI]"
 preferred-citation:
   type: article
-  title: "Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model"
+  title: "Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model and state estimation via an extended Kalman filter"
   authors:
     - family-names: Rahimi
       given-names: Saeed
