@@ -5,7 +5,7 @@ Pre-conditioning: 600 days without treatment from y0 = [1, 1e-3, 1, 0] (state at
 Run:  python model/simulation_preconditioning.py
 
 Part of the code for: S. Rahimi, H. Moradi, "Robust drug scheduling for glioma chemotherapy based on a
-multivariable dynamic model" (Sharif University of Technology). MIT License, see LICENSE.
+multivariable dynamic model and state estimation via an extended Kalman filter" (Sharif University of Technology). MIT License, see LICENSE.
 """
 import os                  # needed by the parameter block (all imports follow below)
 import numpy as np

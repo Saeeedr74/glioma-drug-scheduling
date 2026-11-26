@@ -5,7 +5,7 @@ Discrete SMC relay (final v2 parameters), continuous SMC and the standard 5/28 p
 Run:  python controllers/smc/smc_simulation.py
 
 Part of the code for: S. Rahimi, H. Moradi, "Robust drug scheduling for glioma chemotherapy based on a
-multivariable dynamic model" (Sharif University of Technology). MIT License, see LICENSE.
+multivariable dynamic model and state estimation via an extended Kalman filter" (Sharif University of Technology). MIT License, see LICENSE.
 """
 import os                  # needed by the parameter block (all imports follow below)
 import numpy as np

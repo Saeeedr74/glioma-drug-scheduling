@@ -1,4 +1,4 @@
-# Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model
+# Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model and state estimation via an extended Kalman filter
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)
@@ -196,7 +196,7 @@ Please cite the article (see also [CITATION.cff](CITATION.cff)):
 ```bibtex
 @article{rahimi_moradi_glioma_scheduling,
   author  = {Rahimi, Saeed and Moradi, Hamed},
-  title   = {Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model},
+  title   = {Robust drug scheduling for glioma chemotherapy based on a multivariable dynamic model and state estimation via an extended Kalman filter},
   journal = {Computer Methods and Programs in Biomedicine},
   note    = {Submitted},
   doi     = {TODO}

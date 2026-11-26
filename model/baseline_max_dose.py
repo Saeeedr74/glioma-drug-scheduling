@@ -6,7 +6,7 @@ paper); the tumor is then taken as eliminated (x2 := 0) and u = 0 until the end 
 Run:  python model/baseline_max_dose.py
 
 Part of the code for: S. Rahimi, H. Moradi, "Robust drug scheduling for glioma chemotherapy based on a
-multivariable dynamic model" (Sharif University of Technology). MIT License, see LICENSE.
+multivariable dynamic model and state estimation via an extended Kalman filter" (Sharif University of Technology). MIT License, see LICENSE.
 """
 import os                  # needed by the parameter block (all imports follow below)
 import numpy as np

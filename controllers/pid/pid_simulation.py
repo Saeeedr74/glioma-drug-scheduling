@@ -5,7 +5,7 @@ Gain-scheduled PID with discrete doses {50, 200} on the nominal model (final v2 
 Run:  python controllers/pid/pid_simulation.py
 
 Part of the code for: S. Rahimi, H. Moradi, "Robust drug scheduling for glioma chemotherapy based on a
-multivariable dynamic model" (Sharif University of Technology). MIT License, see LICENSE.
+multivariable dynamic model and state estimation via an extended Kalman filter" (Sharif University of Technology). MIT License, see LICENSE.
 """
 import os                  # needed by the parameter block (all imports follow below)
 import numpy as np

@@ -6,7 +6,7 @@ Differential-evolution tuning of the PID and SMC parameters (seeds 7, 11, 23). A
 Run:  python tuning/tune_pid_smc.py
 
 Part of the code for: S. Rahimi, H. Moradi, "Robust drug scheduling for glioma chemotherapy based on a
-multivariable dynamic model" (Sharif University of Technology). MIT License, see LICENSE.
+multivariable dynamic model and state estimation via an extended Kalman filter" (Sharif University of Technology). MIT License, see LICENSE.
 """
 import contextlib
 import inspect
